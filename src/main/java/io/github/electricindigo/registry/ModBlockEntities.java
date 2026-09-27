@@ -1,7 +1,6 @@
 package io.github.electricindigo.registry;
 
 import io.github.electricindigo.ChronoDynamics;
-import io.github.electricindigo.block.ModBlocks;
 import io.github.electricindigo.block.researchdesk.ResearchDeskBlockEntity;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.entity.BlockEntityType;

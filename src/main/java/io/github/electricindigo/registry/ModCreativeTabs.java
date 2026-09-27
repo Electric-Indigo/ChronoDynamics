@@ -1,7 +1,6 @@
-package io.github.electricindigo;
+package io.github.electricindigo.registry;
 
-import io.github.electricindigo.block.ModBlocks;
-import io.github.electricindigo.item.ModItems;
+import io.github.electricindigo.ChronoDynamics;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -25,6 +24,8 @@ public class ModCreativeTabs
                         output.accept(ModItems.EFD_ITEM.get());
                         output.accept(ModItems.COMPUTER_UPGRADE.get());
                         output.accept(ModBlocks.RESEARCH_DESK.get());
+                        output.accept(ModBlocks.CHRONITE_CLUSTER.get());
+                        output.accept(ModItems.CHRONITE_CRYSTAL.get());
                     })
                     .build()
     );

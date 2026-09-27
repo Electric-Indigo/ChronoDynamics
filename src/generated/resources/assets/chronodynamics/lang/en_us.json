@@ -1,6 +1,8 @@
 {
+  "block.chronodynamics.chronite_cluster": "Chronite Cluster",
   "block.chronodynamics.research_desk": "Research Desk",
   "creativetab.chronodynamics.chronodynamics_tab": "Chrono Dynamics",
+  "item.chronodynamics.chronite_crystal": "Chronite Crystal",
   "item.chronodynamics.computer_upgrade": "Computer Upgrade",
   "item.chronodynamics.e_for_d": "Electronics for Dummies"
 }

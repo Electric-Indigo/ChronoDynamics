@@ -9,6 +9,9 @@ version="${mod_version}" #mandatory
 
 displayName="${mod_name}" #mandatory
 
+iconFile="logo.png"
+bannerFile="banner.png"
+
 #authors=""
 
 description='''

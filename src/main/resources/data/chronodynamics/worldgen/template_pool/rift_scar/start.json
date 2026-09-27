@@ -1,0 +1,9 @@
+{
+  "elements": [
+    { "element": { "element_type": "minecraft:single_pool_element", "location": "chronodynamics:rift_scar/zigzag",    "processors": "minecraft:empty", "projection": "rigid" }, "weight": 3 },
+    { "element": { "element_type": "minecraft:single_pool_element", "location": "chronodynamics:rift_scar/fork",      "processors": "minecraft:empty", "projection": "rigid" }, "weight": 3 },
+    { "element": { "element_type": "minecraft:single_pool_element", "location": "chronodynamics:rift_scar/curve",     "processors": "minecraft:empty", "projection": "rigid" }, "weight": 3 },
+    { "element": { "element_type": "minecraft:single_pool_element", "location": "chronodynamics:rift_scar/starburst", "processors": "minecraft:empty", "projection": "rigid" }, "weight": 1 }
+  ],
+  "fallback": "minecraft:empty"
+}

@@ -1,0 +1,11 @@
+{
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 73914262,
+    "separation": 12,
+    "spacing": 32
+  },
+  "structures": [
+    { "structure": "chronodynamics:rift_scar", "weight": 1 }
+  ]
+}

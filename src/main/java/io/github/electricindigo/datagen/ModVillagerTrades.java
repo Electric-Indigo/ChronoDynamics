@@ -1,7 +1,7 @@
 package io.github.electricindigo.datagen;
 
 import io.github.electricindigo.ChronoDynamics;
-import io.github.electricindigo.item.ModItems;
+import io.github.electricindigo.registry.ModItems;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;

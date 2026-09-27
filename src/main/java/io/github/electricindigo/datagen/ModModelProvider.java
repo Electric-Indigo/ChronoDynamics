@@ -2,10 +2,10 @@ package io.github.electricindigo.datagen;
 
 import com.mojang.math.Quadrant;
 import io.github.electricindigo.ChronoDynamics;
-import io.github.electricindigo.block.ModBlocks;
+import io.github.electricindigo.registry.ModBlocks;
 import io.github.electricindigo.block.researchdesk.DeskPart;
 import io.github.electricindigo.block.researchdesk.ResearchDeskBlock;
-import io.github.electricindigo.item.ModItems;
+import io.github.electricindigo.registry.ModItems;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.ModelProvider;
@@ -30,6 +30,10 @@ public class ModModelProvider extends ModelProvider
     {
         itemModels.generateFlatItem(ModItems.EFD_ITEM.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ModItems.COMPUTER_UPGRADE.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.CHRONITE_CRYSTAL.get(), ModelTemplates.FLAT_ITEM);
+
+        blockModels.createAmethystCluster(ModBlocks.CHRONITE_CLUSTER.get());
+        itemModels.generateFlatItem(ModItems.CHRONITE_CLUSTER_ITEM.get(), ModelTemplates.FLAT_ITEM);
 
         Identifier primaryModel = ModelLocationUtils.getModelLocation(ModBlocks.RESEARCH_DESK.get(), "_primary");
         Identifier secondaryModel = ModelLocationUtils.getModelLocation(ModBlocks.RESEARCH_DESK.get(), "_secondary");

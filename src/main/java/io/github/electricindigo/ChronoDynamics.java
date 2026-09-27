@@ -1,15 +1,11 @@
 package io.github.electricindigo;
 
-import io.github.electricindigo.block.ModBlocks;
+import io.github.electricindigo.registry.*;
 import io.github.electricindigo.block.researchdesk.ResearchDeskScreen;
 import io.github.electricindigo.command.DebugPuzzleCommand;
 import io.github.electricindigo.command.DebugWaveformCommand;
 import io.github.electricindigo.datagen.*;
-import io.github.electricindigo.item.ModItems;
 import io.github.electricindigo.network.ModNetworking;
-import io.github.electricindigo.registry.ModAttachments;
-import io.github.electricindigo.registry.ModBlockEntities;
-import io.github.electricindigo.registry.ModMenuTypes;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.DataGenerator;

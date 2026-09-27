@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "chronodynamics:block/chronite_cluster"
+  }
+}
