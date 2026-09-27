@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "chronodynamics:block/chemistry_bench"
+    }
+  }
+}

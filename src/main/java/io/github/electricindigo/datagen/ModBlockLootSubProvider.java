@@ -49,6 +49,9 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider
                         this.applyExplosionDecay(block,
                                 LootItem.lootTableItem(ModItems.CHRONITE_CRYSTAL.get())
                                         .apply(SetItemCountFunction.setCount(ContextIntProviders.between(1, 2)))
-                                        .apply(ApplyBonusCount.addOreBonusCount(this.enchantments.getOrThrow(Enchantments.FORTUNE))))));
+                                        .apply(ApplyBonusCount.addOreBonusCount(this.enchantments.getOrThrow(Enchantments.FORTUNE)))))
+        );
+
+        this.dropSelf(ModBlocks.CHEMISTRY_BENCH.get());
     }
 }

@@ -19,9 +19,13 @@ public class ModLanguageProvider extends LanguageProvider
         addItem(ModItems.EFD_ITEM, "Electronics for Dummies");
         addItem(ModItems.COMPUTER_UPGRADE, "Computer Upgrade");
         addItem(ModItems.CHRONITE_CRYSTAL, "Chronite Crystal");
+        addItem(ModItems.SCANNER_ITEM, "Chronite Scanner");
+        addItem(ModItems.CONDUCTIVE_REDSTONE_PASTE, "Conductive Redstone Paste");
+        addItem(ModItems.BURNT_ASH, "Burnt Ash");
 
         addBlock(ModBlocks.CHRONITE_CLUSTER, "Chronite Cluster");
         addBlock(ModBlocks.RESEARCH_DESK, "Research Desk");
+        addBlock(ModBlocks.CHEMISTRY_BENCH, "Chemistry Bench");
 
         add("creativetab.chronodynamics.chronodynamics_tab", "Chrono Dynamics");
     }

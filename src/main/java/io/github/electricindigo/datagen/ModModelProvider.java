@@ -31,9 +31,14 @@ public class ModModelProvider extends ModelProvider
         itemModels.generateFlatItem(ModItems.EFD_ITEM.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ModItems.COMPUTER_UPGRADE.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ModItems.CHRONITE_CRYSTAL.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.SCANNER_ITEM.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.CONDUCTIVE_REDSTONE_PASTE.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.BURNT_ASH.get(), ModelTemplates.FLAT_ITEM);
 
         blockModels.createAmethystCluster(ModBlocks.CHRONITE_CLUSTER.get());
         itemModels.generateFlatItem(ModItems.CHRONITE_CLUSTER_ITEM.get(), ModelTemplates.FLAT_ITEM);
+
+        blockModels.createTrivialCube(ModBlocks.CHEMISTRY_BENCH.get());
 
         Identifier primaryModel = ModelLocationUtils.getModelLocation(ModBlocks.RESEARCH_DESK.get(), "_primary");
         Identifier secondaryModel = ModelLocationUtils.getModelLocation(ModBlocks.RESEARCH_DESK.get(), "_secondary");

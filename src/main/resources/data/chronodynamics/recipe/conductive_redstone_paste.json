@@ -1,0 +1,15 @@
+{
+  "type": "chronodynamics:chemistry",
+  "ingredients": [
+    "minecraft:redstone",
+    "minecraft:copper_ingot",
+    "minecraft:slime_ball"
+  ],
+  "result": {
+    "id": "chronodynamics:conductive_redstone_paste",
+    "count": 2
+  },
+  "min_heat": 150,
+  "max_heat": 350,
+  "time": 200
+}

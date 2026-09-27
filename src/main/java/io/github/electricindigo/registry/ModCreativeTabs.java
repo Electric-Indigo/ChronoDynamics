@@ -23,9 +23,12 @@ public class ModCreativeTabs
                     {
                         output.accept(ModItems.EFD_ITEM.get());
                         output.accept(ModItems.COMPUTER_UPGRADE.get());
-                        output.accept(ModBlocks.RESEARCH_DESK.get());
                         output.accept(ModBlocks.CHRONITE_CLUSTER.get());
                         output.accept(ModItems.CHRONITE_CRYSTAL.get());
+                        output.accept(ModItems.SCANNER_ITEM.get());
+
+                        output.accept(ModBlocks.RESEARCH_DESK.get());
+                        output.accept(ModBlocks.CHEMISTRY_BENCH.get());
                     })
                     .build()
     );

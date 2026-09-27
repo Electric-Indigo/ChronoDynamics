@@ -1,5 +1,6 @@
 package io.github.electricindigo;
 
+import io.github.electricindigo.block.chemistrybench.ChemistryBenchScreen;
 import io.github.electricindigo.registry.*;
 import io.github.electricindigo.block.researchdesk.ResearchDeskScreen;
 import io.github.electricindigo.command.DebugPuzzleCommand;
@@ -41,11 +42,14 @@ public class ChronoDynamics
         ModMenuTypes.register(modEventBus);
         ModCreativeTabs.register(modEventBus);
         ModAttachments.register(modEventBus);
+        ModDataComponents.register(modEventBus);
+        ModRecipes.register(modEventBus);
     }
 
     public void onRegisterMenuScreens(RegisterMenuScreensEvent event)
     {
         event.register(ModMenuTypes.RESEARCH_DESK_MENU.get(), ResearchDeskScreen::new);
+        event.register(ModMenuTypes.CHEMISTRY_BENCH_MENU.get(), ChemistryBenchScreen::new);
     }
 
     private void onRegisterCommands(RegisterCommandsEvent event)

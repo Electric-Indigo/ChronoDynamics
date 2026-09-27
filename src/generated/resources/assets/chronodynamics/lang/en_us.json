@@ -1,8 +1,12 @@
 {
+  "block.chronodynamics.chemistry_bench": "Chemistry Bench",
   "block.chronodynamics.chronite_cluster": "Chronite Cluster",
   "block.chronodynamics.research_desk": "Research Desk",
   "creativetab.chronodynamics.chronodynamics_tab": "Chrono Dynamics",
+  "item.chronodynamics.burnt_ash": "Burnt Ash",
   "item.chronodynamics.chronite_crystal": "Chronite Crystal",
   "item.chronodynamics.computer_upgrade": "Computer Upgrade",
-  "item.chronodynamics.e_for_d": "Electronics for Dummies"
+  "item.chronodynamics.conductive_redstone_paste": "Conductive Redstone Paste",
+  "item.chronodynamics.e_for_d": "Electronics for Dummies",
+  "item.chronodynamics.scanner": "Chronite Scanner"
 }

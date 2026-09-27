@@ -1,5 +1,6 @@
 {
   "values": [
-    "chronodynamics:chronite_cluster"
+    "chronodynamics:chronite_cluster",
+    "chronodynamics:chemistry_bench"
   ]
 }

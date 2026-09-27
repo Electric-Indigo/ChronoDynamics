@@ -1,6 +1,7 @@
 package io.github.electricindigo.registry;
 
 import io.github.electricindigo.ChronoDynamics;
+import io.github.electricindigo.item.ScannerItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
@@ -22,9 +23,16 @@ public class ModItems
     public static final DeferredItem<Item> CHRONITE_CRYSTAL = ITEMS.registerSimpleItem("chronite_crystal",
             properties -> properties.rarity(Rarity.RARE));
 
-    public static final DeferredItem<BlockItem> CHRONITE_CLUSTER_ITEM = ITEMS.registerSimpleBlockItem(ModBlocks.CHRONITE_CLUSTER);
+    public static final DeferredItem<ScannerItem> SCANNER_ITEM = ITEMS.registerItem("scanner",
+            ScannerItem::new, properties -> properties.stacksTo(1));
 
+    public static final DeferredItem<Item> CONDUCTIVE_REDSTONE_PASTE = ITEMS.registerSimpleItem("conductive_redstone_paste");
+    public static final DeferredItem<Item> BURNT_ASH = ITEMS.registerSimpleItem("burnt_ash");
+
+
+    public static final DeferredItem<BlockItem> CHRONITE_CLUSTER_ITEM = ITEMS.registerSimpleBlockItem(ModBlocks.CHRONITE_CLUSTER);
     public static final DeferredItem<BlockItem> RESEARCH_DESK_ITEM = ITEMS.registerSimpleBlockItem(ModBlocks.RESEARCH_DESK);
+    public static final DeferredItem<BlockItem> CHEMISTRY_BENCH_ITEM = ITEMS.registerSimpleBlockItem(ModBlocks.CHEMISTRY_BENCH);
 
 
     public static void register(IEventBus modEventBus)
