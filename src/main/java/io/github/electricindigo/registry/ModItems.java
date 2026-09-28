@@ -1,6 +1,7 @@
 package io.github.electricindigo.registry;
 
 import io.github.electricindigo.ChronoDynamics;
+import io.github.electricindigo.item.BlueprintItem;
 import io.github.electricindigo.item.ScannerItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -26,8 +27,19 @@ public class ModItems
     public static final DeferredItem<ScannerItem> SCANNER_ITEM = ITEMS.registerItem("scanner",
             ScannerItem::new, properties -> properties.stacksTo(1));
 
+    public static final DeferredItem<BlueprintItem> BLUEPRINT = ITEMS.registerItem("blueprint",
+            BlueprintItem::new, properties -> properties.stacksTo(1));
+
     public static final DeferredItem<Item> CONDUCTIVE_REDSTONE_PASTE = ITEMS.registerSimpleItem("conductive_redstone_paste");
     public static final DeferredItem<Item> BURNT_ASH = ITEMS.registerSimpleItem("burnt_ash");
+    public static final DeferredItem<Item> DRAFTING_INK = ITEMS.registerSimpleItem("drafting_ink");
+    public static final DeferredItem<Item> PURIFIED_QUARTZ = ITEMS.registerSimpleItem("purified_quartz");
+    public static final DeferredItem<Item> RESONANT_AMETHYST = ITEMS.registerSimpleItem("resonant_amethyst");
+
+    public static final DeferredItem<Item> QUARTZ_OSCILLATOR = ITEMS.registerSimpleItem("quartz_oscillator");
+    public static final DeferredItem<Item> DRIFT_SENSOR = ITEMS.registerSimpleItem("drift_sensor");
+    public static final DeferredItem<Item> CIRCUIT_BOARD = ITEMS.registerSimpleItem("circuit_board");
+
 
 
     public static final DeferredItem<BlockItem> CHRONITE_CLUSTER_ITEM = ITEMS.registerSimpleBlockItem(ModBlocks.CHRONITE_CLUSTER);

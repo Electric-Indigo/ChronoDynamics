@@ -1,0 +1,14 @@
+{
+  "type": "chronodynamics:chemistry",
+  "ingredients": [
+    "minecraft:amethyst_shard",
+    "minecraft:glowstone_dust",
+    "minecraft:redstone"
+  ],
+  "result": {
+    "id": "chronodynamics:resonant_amethyst"
+  },
+  "min_heat": 400,
+  "max_heat": 500,
+  "time": 200
+}

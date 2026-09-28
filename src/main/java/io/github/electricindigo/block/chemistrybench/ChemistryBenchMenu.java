@@ -31,13 +31,13 @@ public class ChemistryBenchMenu extends AbstractContainerMenu
         this.container = container;
         this.data = data;
 
-        addSlot(new Slot(container, INPUT_1, 30, 17));
-        addSlot(new Slot(container, INPUT_2, 48, 17));
-        addSlot(new Slot(container, INPUT_3, 66, 17));
-        addSlot(new FuelSlot(container, FUEL, 48, 53));
-        addSlot(new Slot(container, OUTPUT, 124, 35));
+        addSlot(new Slot(container, INPUT_1, 66, 34));
+        addSlot(new Slot(container, INPUT_2, 57, 52));
+        addSlot(new Slot(container, INPUT_3, 75, 52));
+        addSlot(new FuelSlot(container, FUEL, 23, 67));
+        addSlot(new Slot(container, OUTPUT, 128, 39));
 
-        addStandardInventorySlots(inventory, 8, 84);
+        addStandardInventorySlots(inventory, 8, 104);
         addDataSlots(data);
     }
 

@@ -21,12 +21,32 @@ public class ModCreativeTabs
                     .icon(() -> ModItems.COMPUTER_UPGRADE.get().getDefaultInstance())
                     .displayItems((params, output) ->
                     {
+                        output.accept(ModItems.BLUEPRINT.get());
                         output.accept(ModItems.EFD_ITEM.get());
-                        output.accept(ModItems.COMPUTER_UPGRADE.get());
-                        output.accept(ModBlocks.CHRONITE_CLUSTER.get());
+
+                        //Components
                         output.accept(ModItems.CHRONITE_CRYSTAL.get());
+                        output.accept(ModItems.DRAFTING_INK.get());
+                        output.accept(ModItems.BURNT_ASH.get());
+                        output.accept(ModItems.CONDUCTIVE_REDSTONE_PASTE.get());
+                        output.accept(ModItems.PURIFIED_QUARTZ.get());
+                        output.accept(ModItems.RESONANT_AMETHYST.get());
+
+                        //Electronic Components
+                        output.accept(ModItems.CIRCUIT_BOARD.get());
+                        output.accept(ModItems.DRIFT_SENSOR.get());
+                        output.accept(ModItems.QUARTZ_OSCILLATOR.get());
+
+                        //Devices
                         output.accept(ModItems.SCANNER_ITEM.get());
 
+                        //Upgrades
+                        output.accept(ModItems.COMPUTER_UPGRADE.get());
+
+                        //Blocks
+                        output.accept(ModBlocks.CHRONITE_CLUSTER.get());
+
+                        //Workstations
                         output.accept(ModBlocks.RESEARCH_DESK.get());
                         output.accept(ModBlocks.CHEMISTRY_BENCH.get());
                     })

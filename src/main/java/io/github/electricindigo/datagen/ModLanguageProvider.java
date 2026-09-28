@@ -22,11 +22,19 @@ public class ModLanguageProvider extends LanguageProvider
         addItem(ModItems.SCANNER_ITEM, "Chronite Scanner");
         addItem(ModItems.CONDUCTIVE_REDSTONE_PASTE, "Conductive Redstone Paste");
         addItem(ModItems.BURNT_ASH, "Burnt Ash");
+        addItem(ModItems.BLUEPRINT, "Blueprint");
+        addItem(ModItems.DRAFTING_INK, "Drafting Ink");
+        addItem(ModItems.CIRCUIT_BOARD, "Circuit Board");
+        addItem(ModItems.DRIFT_SENSOR, "Drift Sensor");
+        addItem(ModItems.PURIFIED_QUARTZ, "Purified Quartz");
+        addItem(ModItems.QUARTZ_OSCILLATOR, "Quartz Oscillator");
+        addItem(ModItems.RESONANT_AMETHYST, "Resonant Amethyst");
 
         addBlock(ModBlocks.CHRONITE_CLUSTER, "Chronite Cluster");
         addBlock(ModBlocks.RESEARCH_DESK, "Research Desk");
         addBlock(ModBlocks.CHEMISTRY_BENCH, "Chemistry Bench");
 
         add("creativetab.chronodynamics.chronodynamics_tab", "Chrono Dynamics");
+        add("item.chronodynamics.blueprint.named", "Blueprint: %s");
     }
 }

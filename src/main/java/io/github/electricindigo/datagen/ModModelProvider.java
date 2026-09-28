@@ -17,6 +17,7 @@ import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.Identifier;
+import net.neoforged.fml.common.Mod;
 
 public class ModModelProvider extends ModelProvider
 {
@@ -34,6 +35,13 @@ public class ModModelProvider extends ModelProvider
         itemModels.generateFlatItem(ModItems.SCANNER_ITEM.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ModItems.CONDUCTIVE_REDSTONE_PASTE.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ModItems.BURNT_ASH.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.BLUEPRINT.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.DRAFTING_INK.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.CIRCUIT_BOARD.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.DRIFT_SENSOR.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.PURIFIED_QUARTZ.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.QUARTZ_OSCILLATOR.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.RESONANT_AMETHYST.get(), ModelTemplates.FLAT_ITEM);
 
         blockModels.createAmethystCluster(ModBlocks.CHRONITE_CLUSTER.get());
         itemModels.generateFlatItem(ModItems.CHRONITE_CLUSTER_ITEM.get(), ModelTemplates.FLAT_ITEM);

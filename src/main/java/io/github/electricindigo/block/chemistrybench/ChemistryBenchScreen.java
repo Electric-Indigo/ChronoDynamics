@@ -14,58 +14,87 @@ public class ChemistryBenchScreen extends AbstractContainerScreen<ChemistryBench
     private static final Identifier TEXTURE =
             Identifier.fromNamespaceAndPath(ChronoDynamics.MODID, "textures/gui/chemistry_bench.png");
 
-    private static final Identifier FLAME_SPRITE = Identifier.withDefaultNamespace("container/furnace/lit_progress");
-    private static final Identifier ARROW_SPRITE = Identifier.withDefaultNamespace("container/furnace/burn_progress");
+    // Where things are on the GUI
+    private static final int FLAME_X = 71, FLAME_Y = 75, FLAME_W = 6, FLAME_H = 9;
+    private static final int ARROW_X = 104, ARROW_Y = 42, ARROW_W = 17, ARROW_H = 11;
+    private static final int BUBBLES_X = 53, BUBBLES_Y = 23, BUBBLES_W = 45, BUBBLES_H = 13;
+    private static final int TUBE_X = 162, TUBE_TOP = 21, TUBE_BOTTOM = 69, TUBE_W = 6;
+    private static final int MAX_DISPLAY_TEMP = 600;
 
-    private static final int THERMO_X = 152;
-    private static final int THERMO_Y = 17;
-    private static final int THERMO_W = 8;
-    private static final int THERMO_H = 52;
-    private static final int MAX_DISPLAY_TEMP = 1000;
+    // Where the lit flame, arrow and bubble frames are stored in the texture
+    private static final int SPRITE_U = 176;
+    private static final int FLAME_V = 0, ARROW_V = 9, BUBBLES_V = 20;
 
-    public ChemistryBenchScreen(ChemistryBenchMenu menu, Inventory inventory, Component title) {
-        super(menu, inventory, title, 176, 166);
+    public ChemistryBenchScreen(ChemistryBenchMenu menu, Inventory inventory, Component title)
+    {
+        super(menu, inventory, title, 176, 186);
     }
 
     @Override
-    public void extractBackground(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a) {
+    public void extractBackground(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a)
+    {
         super.extractBackground(graphics, mouseX, mouseY, a);
         int x = leftPos;
         int y = topPos;
         graphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, x, y, 0, 0, imageWidth, imageHeight, 256, 256);
 
-        // Flame shrinks as the fuel burns down (same trick as the vanilla furnace)
+        // Flame shrinks from the top as the fuel burns down
         if (menu.isBurning())
         {
-            int h = Mth.ceil(menu.getBurnLeft() * 13.0F) + 1;
-            graphics.blitSprite(RenderPipelines.GUI_TEXTURED, FLAME_SPRITE, 14, 14, 0, 14 - h,
-                    x + 49, y + 36 + 14 - h, 14, h);
+            int h = Mth.ceil(menu.getBurnLeft() * FLAME_H);
+            int cut = FLAME_H - h;
+            graphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, x + FLAME_X, y + FLAME_Y + cut,
+                    SPRITE_U, FLAME_V + cut, FLAME_W, h, 256, 256);
         }
 
-        int arrowW = Mth.ceil(menu.getCraftProgress() * 24.0F);
-        graphics.blitSprite(RenderPipelines.GUI_TEXTURED, ARROW_SPRITE, 24, 16, 0, 0, x + 94, y + 34, arrowW, 16);
+        // Arrow fills left to right with craft progress
+        int arrowW = Mth.ceil(menu.getCraftProgress() * ARROW_W);
+        if (arrowW > 0)
+        {
+            graphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, x + ARROW_X, y + ARROW_Y,
+                    SPRITE_U, ARROW_V, arrowW, ARROW_H, 256, 256);
+        }
 
-        // Thermometer: dark tube, then a colored fill from the bottom up
+        // Bubbles while a craft is in progress, new frame every 4 ticks
+        if (menu.getCraftProgress() > 0 && minecraft.level != null)
+        {
+            int frame = (int) ((minecraft.level.getGameTime() / 4) % 4);
+            graphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, x + BUBBLES_X, y + BUBBLES_Y,
+                    SPRITE_U, BUBBLES_V + frame * BUBBLES_H, BUBBLES_W, BUBBLES_H, 256, 256);
+        }
+
+        drawThermometer(graphics, x, y, mouseX, mouseY);
+    }
+
+    private void drawThermometer(GuiGraphicsExtractor graphics, int x, int y, int mouseX, int mouseY)
+    {
         int temp = menu.getTemperature();
-        int left = x + THERMO_X;
-        int top = y + THERMO_Y;
-        int bottom = top + THERMO_H;
-        graphics.fill(left, top, left + THERMO_W, bottom, 0xFF2B2B2B);
+        int color = colorFor(temp);
+        int tubeH = TUBE_BOTTOM - TUBE_TOP;
 
-        int fillH = Mth.clamp(temp * THERMO_H / MAX_DISPLAY_TEMP, 0, THERMO_H);
-        graphics.fill(left + 1, bottom - fillH, left + THERMO_W - 1, bottom, colorFor(temp));
+        // Tube fills from the bottom up
+        int fillH = Mth.clamp(temp * tubeH / MAX_DISPLAY_TEMP, 0, tubeH);
+        graphics.fill(x + TUBE_X, y + TUBE_BOTTOM - fillH, x + TUBE_X + TUBE_W, y + TUBE_BOTTOM, color);
 
+        // Bulb is always filled, matching your bulb shape
+        graphics.fill(x + 161, y + 69, x + 169, y + 71, color);
+        graphics.fill(x + 160, y + 71, x + 170, y + 75, color);
+        graphics.fill(x + 161, y + 75, x + 169, y + 77, color);
+        graphics.fill(x + 163, y + 77, x + 167, y + 78, color);
+
+        // White lines for the current recipe's heat window
         int minHeat = menu.getMinHeat();
         int maxHeat = menu.getMaxHeat();
         if (maxHeat > 0)
         {
-            int minY = bottom - Mth.clamp(minHeat * THERMO_H / MAX_DISPLAY_TEMP, 0, THERMO_H);
-            int maxY = bottom - Mth.clamp(maxHeat * THERMO_H / MAX_DISPLAY_TEMP, 0, THERMO_H);
-            graphics.fill(left - 1, minY, left + THERMO_W + 1, minY + 1, 0xFFFFFFFF);
-            graphics.fill(left - 1, maxY, left + THERMO_W + 1, maxY + 1, 0xFFFFFFFF);
+            for (int heat : new int[] {minHeat, maxHeat})
+            {
+                int lineY = y + TUBE_BOTTOM - Mth.clamp(heat * tubeH / MAX_DISPLAY_TEMP, 0, tubeH);
+                graphics.fill(x + 159, lineY, x + 171, lineY + 1, 0xFFFFFFFF);
+            }
         }
 
-        if (isHovering(THERMO_X, THERMO_Y, THERMO_W, THERMO_H, mouseX, mouseY))
+        if (isHovering(159, 19, 12, 60, mouseX, mouseY))
         {
             String text = temp + "°";
             if (maxHeat > 0) text += "  (needs " + minHeat + "–" + maxHeat + "°)";
@@ -73,6 +102,7 @@ public class ChemistryBenchScreen extends AbstractContainerScreen<ChemistryBench
         }
     }
 
+    // Blue when cool, then yellow, orange, and red as it heats up
     private static int colorFor(int temp)
     {
         if (temp < 100) return 0xFF4A90E2;

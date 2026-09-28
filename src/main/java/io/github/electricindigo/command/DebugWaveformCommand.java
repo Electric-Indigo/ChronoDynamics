@@ -14,7 +14,7 @@ public final class DebugWaveformCommand
 
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         dispatcher.register(
-                Commands.literal("chronodesync")
+                Commands.literal("chrono")
                         .then(Commands.literal("debugwave")
                                 .then(Commands.argument("difficulty", IntegerArgumentType.integer(1, 3))
                                         .executes(ctx -> start(ctx.getSource(), IntegerArgumentType.getInteger(ctx, "difficulty")))))

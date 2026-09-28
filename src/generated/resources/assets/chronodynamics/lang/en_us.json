@@ -3,10 +3,18 @@
   "block.chronodynamics.chronite_cluster": "Chronite Cluster",
   "block.chronodynamics.research_desk": "Research Desk",
   "creativetab.chronodynamics.chronodynamics_tab": "Chrono Dynamics",
+  "item.chronodynamics.blueprint": "Blueprint",
+  "item.chronodynamics.blueprint.named": "Blueprint: %s",
   "item.chronodynamics.burnt_ash": "Burnt Ash",
   "item.chronodynamics.chronite_crystal": "Chronite Crystal",
+  "item.chronodynamics.circuit_board": "Circuit Board",
   "item.chronodynamics.computer_upgrade": "Computer Upgrade",
   "item.chronodynamics.conductive_redstone_paste": "Conductive Redstone Paste",
+  "item.chronodynamics.drafting_ink": "Drafting Ink",
+  "item.chronodynamics.drift_sensor": "Drift Sensor",
   "item.chronodynamics.e_for_d": "Electronics for Dummies",
+  "item.chronodynamics.purified_quartz": "Purified Quartz",
+  "item.chronodynamics.quartz_oscillator": "Quartz Oscillator",
+  "item.chronodynamics.resonant_amethyst": "Resonant Amethyst",
   "item.chronodynamics.scanner": "Chronite Scanner"
 }

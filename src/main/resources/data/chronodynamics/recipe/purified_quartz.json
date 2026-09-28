@@ -1,0 +1,14 @@
+{
+  "type": "chronodynamics:chemistry",
+  "ingredients": [
+    "minecraft:quartz",
+    "minecraft:quartz",
+    "minecraft:sand"
+  ],
+  "result": {
+    "id": "chronodynamics:purified_quartz"
+  },
+  "min_heat": 250,
+  "max_heat": 300,
+  "time": 200
+}

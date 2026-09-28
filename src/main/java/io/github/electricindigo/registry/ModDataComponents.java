@@ -22,6 +22,10 @@ public class ModDataComponents
             COMPONENTS.registerComponentType("scanner_fuel",
                     builder -> builder.persistent(Codec.INT).networkSynchronized(ByteBufCodecs.VAR_INT));
 
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<String>> BLUEPRINT_ID =
+            COMPONENTS.registerComponentType("blueprint_id",
+                    builder -> builder.persistent(Codec.STRING).networkSynchronized(ByteBufCodecs.STRING_UTF8));
+
     public static void register(IEventBus modEventBus)
     {
         COMPONENTS.register(modEventBus);
