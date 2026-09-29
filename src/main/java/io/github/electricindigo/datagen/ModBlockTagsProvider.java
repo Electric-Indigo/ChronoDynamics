@@ -24,6 +24,7 @@ public class ModBlockTagsProvider extends BlockTagsProvider
 
         tag(BlockTags.MINEABLE_WITH_PICKAXE)
                 .add(ModBlocks.CHRONITE_CLUSTER.getKey())
-                .add(ModBlocks.CHEMISTRY_BENCH.getKey());
+                .add(ModBlocks.CHEMISTRY_BENCH.getKey())
+                .add(ModBlocks.COMPUTER_DESK.getKey());
     }
 }

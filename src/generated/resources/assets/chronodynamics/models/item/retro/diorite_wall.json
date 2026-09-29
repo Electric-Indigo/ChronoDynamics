@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/diorite_wall_inventory",
+  "textures": {
+    "wall": "chronodynamics:retro/block/diorite"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/emerald_block",
+  "textures": {
+    "all": "chronodynamics:retro/block/emerald_block"
+  }
+}

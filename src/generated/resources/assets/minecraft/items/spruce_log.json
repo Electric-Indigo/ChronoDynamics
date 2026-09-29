@@ -1,0 +1,14 @@
+{
+  "model": {
+    "type": "minecraft:condition",
+    "on_false": {
+      "type": "minecraft:model",
+      "model": "minecraft:block/spruce_log"
+    },
+    "on_true": {
+      "type": "minecraft:model",
+      "model": "chronodynamics:item/retro/spruce_log"
+    },
+    "property": "chronodynamics:rift_retro"
+  }
+}

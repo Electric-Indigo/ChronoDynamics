@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/end_stone_brick_wall_inventory",
+  "textures": {
+    "wall": "chronodynamics:retro/block/end_stone_bricks"
+  }
+}

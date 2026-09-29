@@ -1,0 +1,14 @@
+{
+  "model": {
+    "type": "minecraft:condition",
+    "on_false": {
+      "type": "minecraft:model",
+      "model": "minecraft:block/crafting_table"
+    },
+    "on_true": {
+      "type": "minecraft:model",
+      "model": "chronodynamics:item/retro/crafting_table"
+    },
+    "property": "chronodynamics:rift_retro"
+  }
+}

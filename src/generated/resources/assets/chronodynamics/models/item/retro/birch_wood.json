@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/birch_wood",
+  "textures": {
+    "end": "chronodynamics:retro/block/birch_log",
+    "side": "chronodynamics:retro/block/birch_log"
+  }
+}

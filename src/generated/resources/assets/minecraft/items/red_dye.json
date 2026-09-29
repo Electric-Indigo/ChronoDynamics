@@ -1,0 +1,14 @@
+{
+  "model": {
+    "type": "minecraft:condition",
+    "on_false": {
+      "type": "minecraft:model",
+      "model": "minecraft:item/red_dye"
+    },
+    "on_true": {
+      "type": "minecraft:model",
+      "model": "chronodynamics:item/retro/red_dye"
+    },
+    "property": "chronodynamics:rift_retro"
+  }
+}

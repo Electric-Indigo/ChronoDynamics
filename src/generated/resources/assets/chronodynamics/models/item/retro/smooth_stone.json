@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/smooth_stone",
+  "textures": {
+    "all": "chronodynamics:retro/block/smooth_stone"
+  }
+}

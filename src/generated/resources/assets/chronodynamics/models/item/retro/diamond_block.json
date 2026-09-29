@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/diamond_block",
+  "textures": {
+    "all": "chronodynamics:retro/block/diamond_block"
+  }
+}

@@ -2,6 +2,7 @@ package io.github.electricindigo.registry;
 
 import io.github.electricindigo.ChronoDynamics;
 import io.github.electricindigo.block.chemistrybench.ChemistryBenchBlockEntity;
+import io.github.electricindigo.block.computerdesk.ComputerDeskBlockEntity;
 import io.github.electricindigo.block.researchdesk.ResearchDeskBlockEntity;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -29,6 +30,14 @@ public class ModBlockEntities
             BLOCK_ENTITIES.register("chemistry_bench",
                     () -> new BlockEntityType<>(ChemistryBenchBlockEntity::new, false, ModBlocks.CHEMISTRY_BENCH.get())
             );
+
+    public static final Supplier<BlockEntityType<ComputerDeskBlockEntity>> COMPUTER_DESK =
+            BLOCK_ENTITIES.register("computer_desk",
+                    () -> new BlockEntityType<ComputerDeskBlockEntity>(
+                            (pos, state) -> new ComputerDeskBlockEntity(ModBlockEntities.COMPUTER_DESK.get(), pos, state),
+                            false,
+                            ModBlocks.COMPUTER_DESK.get()
+                    ));
 
     public static void register(IEventBus modEventBus)
     {

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/prismarine_bricks",
+  "textures": {
+    "all": "chronodynamics:retro/block/prismarine_bricks"
+  }
+}

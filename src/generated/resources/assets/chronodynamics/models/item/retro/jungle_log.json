@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/jungle_log",
+  "textures": {
+    "end": "chronodynamics:retro/block/jungle_log_top",
+    "side": "chronodynamics:retro/block/jungle_log"
+  }
+}

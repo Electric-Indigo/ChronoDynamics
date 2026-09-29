@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/crafting_table",
+  "textures": {
+    "down": "chronodynamics:retro/block/oak_planks",
+    "east": "chronodynamics:retro/block/crafting_table_side",
+    "north": "chronodynamics:retro/block/crafting_table_front",
+    "particle": "chronodynamics:retro/block/crafting_table_front",
+    "south": "chronodynamics:retro/block/crafting_table_side",
+    "up": "chronodynamics:retro/block/crafting_table_top",
+    "west": "chronodynamics:retro/block/crafting_table_front"
+  }
+}

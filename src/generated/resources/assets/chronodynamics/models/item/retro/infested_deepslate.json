@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/deepslate",
+  "textures": {
+    "end": "chronodynamics:retro/block/deepslate_top",
+    "side": "chronodynamics:retro/block/deepslate"
+  }
+}

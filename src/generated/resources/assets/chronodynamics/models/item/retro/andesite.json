@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/andesite",
+  "textures": {
+    "all": "chronodynamics:retro/block/andesite"
+  }
+}

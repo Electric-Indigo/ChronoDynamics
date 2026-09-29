@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/andesite_wall_inventory",
+  "textures": {
+    "wall": "chronodynamics:retro/block/andesite"
+  }
+}

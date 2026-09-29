@@ -1,0 +1,14 @@
+{
+  "model": {
+    "type": "minecraft:condition",
+    "on_false": {
+      "type": "minecraft:model",
+      "model": "minecraft:item/minecart"
+    },
+    "on_true": {
+      "type": "minecraft:model",
+      "model": "chronodynamics:item/retro/minecart"
+    },
+    "property": "chronodynamics:rift_retro"
+  }
+}

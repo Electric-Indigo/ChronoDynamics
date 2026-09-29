@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/lapis_block",
+  "textures": {
+    "all": "chronodynamics:retro/block/lapis_block"
+  }
+}

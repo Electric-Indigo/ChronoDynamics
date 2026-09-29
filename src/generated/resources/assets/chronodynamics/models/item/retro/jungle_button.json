@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/jungle_button_inventory",
+  "textures": {
+    "texture": "chronodynamics:retro/block/jungle_planks"
+  }
+}

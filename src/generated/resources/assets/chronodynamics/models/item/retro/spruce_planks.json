@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/spruce_planks",
+  "textures": {
+    "all": "chronodynamics:retro/block/spruce_planks"
+  }
+}

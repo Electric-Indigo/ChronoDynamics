@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/spruce_button_inventory",
+  "textures": {
+    "texture": "chronodynamics:retro/block/spruce_planks"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/nether_wart_block",
+  "textures": {
+    "all": "chronodynamics:retro/block/nether_wart_block"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/polished_granite",
+  "textures": {
+    "all": "chronodynamics:retro/block/polished_granite"
+  }
+}

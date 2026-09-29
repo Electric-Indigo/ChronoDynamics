@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/mossy_cobblestone_stairs",
+  "textures": {
+    "bottom": "chronodynamics:retro/block/mossy_cobblestone",
+    "side": "chronodynamics:retro/block/mossy_cobblestone",
+    "top": "chronodynamics:retro/block/mossy_cobblestone"
+  }
+}

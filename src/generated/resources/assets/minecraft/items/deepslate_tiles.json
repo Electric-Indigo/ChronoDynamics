@@ -1,0 +1,14 @@
+{
+  "model": {
+    "type": "minecraft:condition",
+    "on_false": {
+      "type": "minecraft:model",
+      "model": "minecraft:block/deepslate_tiles"
+    },
+    "on_true": {
+      "type": "minecraft:model",
+      "model": "chronodynamics:item/retro/deepslate_tiles"
+    },
+    "property": "chronodynamics:rift_retro"
+  }
+}

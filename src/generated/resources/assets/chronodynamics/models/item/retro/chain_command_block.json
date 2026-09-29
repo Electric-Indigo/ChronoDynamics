@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/chain_command_block",
+  "textures": {
+    "back": "chronodynamics:retro/block/chain_command_block_back",
+    "front": "chronodynamics:retro/block/chain_command_block_front",
+    "side": "chronodynamics:retro/block/chain_command_block_side"
+  }
+}

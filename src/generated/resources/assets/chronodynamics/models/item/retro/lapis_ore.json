@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/lapis_ore",
+  "textures": {
+    "all": "chronodynamics:retro/block/lapis_ore"
+  }
+}

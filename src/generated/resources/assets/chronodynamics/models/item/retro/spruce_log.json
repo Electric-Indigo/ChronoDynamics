@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/spruce_log",
+  "textures": {
+    "end": "chronodynamics:retro/block/spruce_log_top",
+    "side": "chronodynamics:retro/block/spruce_log"
+  }
+}

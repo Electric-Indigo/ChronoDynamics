@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/gravel",
+  "textures": {
+    "all": "chronodynamics:retro/block/gravel"
+  }
+}

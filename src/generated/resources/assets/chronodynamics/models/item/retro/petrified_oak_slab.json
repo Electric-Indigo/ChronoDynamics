@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/petrified_oak_slab",
+  "textures": {
+    "bottom": "chronodynamics:retro/block/oak_planks",
+    "side": "chronodynamics:retro/block/oak_planks",
+    "top": "chronodynamics:retro/block/oak_planks"
+  }
+}

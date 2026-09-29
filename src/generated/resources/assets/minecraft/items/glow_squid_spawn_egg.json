@@ -1,0 +1,14 @@
+{
+  "model": {
+    "type": "minecraft:condition",
+    "on_false": {
+      "type": "minecraft:model",
+      "model": "minecraft:item/glow_squid_spawn_egg"
+    },
+    "on_true": {
+      "type": "minecraft:model",
+      "model": "chronodynamics:item/retro/glow_squid_spawn_egg"
+    },
+    "property": "chronodynamics:rift_retro"
+  }
+}

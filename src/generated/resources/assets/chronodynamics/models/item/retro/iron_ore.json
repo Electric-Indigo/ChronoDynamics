@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/iron_ore",
+  "textures": {
+    "all": "chronodynamics:retro/block/iron_ore"
+  }
+}

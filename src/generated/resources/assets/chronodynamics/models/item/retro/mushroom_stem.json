@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/mushroom_stem_inventory",
+  "textures": {
+    "all": "chronodynamics:retro/block/mushroom_stem"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/crying_obsidian",
+  "textures": {
+    "all": "chronodynamics:retro/block/crying_obsidian"
+  }
+}

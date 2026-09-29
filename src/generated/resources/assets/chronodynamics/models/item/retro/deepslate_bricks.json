@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/deepslate_bricks",
+  "textures": {
+    "all": "chronodynamics:retro/block/deepslate_bricks"
+  }
+}

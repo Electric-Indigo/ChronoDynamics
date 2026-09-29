@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/redstone_block",
+  "textures": {
+    "all": "chronodynamics:retro/block/redstone_block"
+  }
+}

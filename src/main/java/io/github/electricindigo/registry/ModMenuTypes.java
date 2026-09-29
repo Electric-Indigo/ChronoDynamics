@@ -2,6 +2,7 @@ package io.github.electricindigo.registry;
 
 import io.github.electricindigo.ChronoDynamics;
 import io.github.electricindigo.block.chemistrybench.ChemistryBenchMenu;
+import io.github.electricindigo.block.computerdesk.ComputerDeskMenu;
 import io.github.electricindigo.block.researchdesk.ResearchDeskMenu;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.flag.FeatureFlags;
@@ -18,6 +19,10 @@ public class ModMenuTypes
     public static final DeferredHolder<MenuType<?>, MenuType<ResearchDeskMenu>> RESEARCH_DESK_MENU =
             MENU_TYPES.register("research_desk_menu",
                     () -> new MenuType(ResearchDeskMenu::new, FeatureFlags.DEFAULT_FLAGS));
+
+    public static final DeferredHolder<MenuType<?>, MenuType<ComputerDeskMenu>> COMPUTER_DESK_MENU =
+            MENU_TYPES.register("computer_desk_menu",
+                    () -> new MenuType(ComputerDeskMenu::new, FeatureFlags.DEFAULT_FLAGS));
 
     public static final DeferredHolder<MenuType<?>, MenuType<ChemistryBenchMenu>> CHEMISTRY_BENCH_MENU =
             MENU_TYPES.register("chemistry_bench_menu",

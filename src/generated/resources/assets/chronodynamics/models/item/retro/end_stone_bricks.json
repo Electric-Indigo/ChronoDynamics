@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/end_stone_bricks",
+  "textures": {
+    "all": "chronodynamics:retro/block/end_stone_bricks"
+  }
+}

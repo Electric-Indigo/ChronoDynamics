@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/polished_andesite",
+  "textures": {
+    "all": "chronodynamics:retro/block/polished_andesite"
+  }
+}

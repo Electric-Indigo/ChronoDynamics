@@ -2,6 +2,7 @@ package io.github.electricindigo.registry;
 
 import io.github.electricindigo.ChronoDynamics;
 import io.github.electricindigo.block.chemistrybench.ChemistryBenchBlock;
+import io.github.electricindigo.block.computerdesk.ComputerDeskBlock;
 import io.github.electricindigo.block.researchdesk.ResearchDeskBlock;
 import net.minecraft.world.level.block.AmethystClusterBlock;
 import net.minecraft.world.level.block.Block;
@@ -19,6 +20,12 @@ public class ModBlocks
     public static final DeferredBlock<Block> RESEARCH_DESK = BLOCKS.registerBlock(
             "research_desk",
             ResearchDeskBlock::new,
+            props -> props.noOcclusion().strength(2.5f).requiresCorrectToolForDrops()
+    );
+
+    public static final DeferredBlock<Block> COMPUTER_DESK = BLOCKS.registerBlock(
+            "computer_desk",
+            ComputerDeskBlock::new,
             props -> props.noOcclusion().strength(2.5f).requiresCorrectToolForDrops()
     );
 

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/diorite",
+  "textures": {
+    "all": "chronodynamics:retro/block/diorite"
+  }
+}

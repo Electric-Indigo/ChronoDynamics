@@ -8,6 +8,13 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "condition": {
+            "type": "minecraft:match_block",
+            "blocks": "chronodynamics:chemistry_bench",
+            "state": {
+              "part": "primary"
+            }
+          },
           "name": "chronodynamics:chemistry_bench"
         }
       ],

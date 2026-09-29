@@ -1,7 +1,8 @@
 package io.github.electricindigo.datagen;
 
+import io.github.electricindigo.block.computerdesk.ComputerDeskBlock;
 import io.github.electricindigo.registry.ModBlocks;
-import io.github.electricindigo.block.researchdesk.DeskPart;
+import io.github.electricindigo.block.DeskPart;
 import io.github.electricindigo.block.researchdesk.ResearchDeskBlock;
 
 import io.github.electricindigo.registry.ModItems;
@@ -44,6 +45,14 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider
                 createSinglePropConditionTable(ModBlocks.RESEARCH_DESK.get(), ResearchDeskBlock.PART, DeskPart.PRIMARY)
                );
 
+        this.add(ModBlocks.COMPUTER_DESK.get(),
+                createSinglePropConditionTable(ModBlocks.COMPUTER_DESK.get(), ComputerDeskBlock.PART, DeskPart.PRIMARY)
+        );
+
+        this.add(ModBlocks.CHEMISTRY_BENCH.get(),
+                createSinglePropConditionTable(ModBlocks.CHEMISTRY_BENCH.get(), ResearchDeskBlock.PART, DeskPart.PRIMARY)
+        );
+
         this.add(ModBlocks.CHRONITE_CLUSTER.get(),
                 block -> this.createSilkTouchDispatchTable(block,
                         this.applyExplosionDecay(block,
@@ -51,7 +60,5 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider
                                         .apply(SetItemCountFunction.setCount(ContextIntProviders.between(1, 2)))
                                         .apply(ApplyBonusCount.addOreBonusCount(this.enchantments.getOrThrow(Enchantments.FORTUNE)))))
         );
-
-        this.dropSelf(ModBlocks.CHEMISTRY_BENCH.get());
     }
 }

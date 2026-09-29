@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/quartz_slab",
+  "textures": {
+    "bottom": "chronodynamics:retro/block/quartz_block_top",
+    "side": "chronodynamics:retro/block/quartz_block_side",
+    "top": "chronodynamics:retro/block/quartz_block_top"
+  }
+}

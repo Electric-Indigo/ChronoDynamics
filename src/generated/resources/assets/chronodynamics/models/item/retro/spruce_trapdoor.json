@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/spruce_trapdoor_bottom",
+  "textures": {
+    "texture": "chronodynamics:retro/block/spruce_trapdoor"
+  }
+}

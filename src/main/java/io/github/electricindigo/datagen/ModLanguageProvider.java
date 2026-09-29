@@ -33,8 +33,13 @@ public class ModLanguageProvider extends LanguageProvider
         addBlock(ModBlocks.CHRONITE_CLUSTER, "Chronite Cluster");
         addBlock(ModBlocks.RESEARCH_DESK, "Research Desk");
         addBlock(ModBlocks.CHEMISTRY_BENCH, "Chemistry Bench");
+        addBlock(ModBlocks.COMPUTER_DESK, "Computer Desk");
 
         add("creativetab.chronodynamics.chronodynamics_tab", "Chrono Dynamics");
         add("item.chronodynamics.blueprint.named", "Blueprint: %s");
+
+        add("chronodynamics.configuration.reduceRiftFlicker", "Reduce rift flicker");
+        add("chronodynamics.configuration.disableTimeDistortion", "Disable time distortion");
+        add("chronodynamics.configuration.retroBubbleRadius", "Retro bubble radius");
     }
 }

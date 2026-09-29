@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/spruce_fence_gate",
+  "textures": {
+    "texture": "chronodynamics:retro/block/spruce_planks"
+  }
+}

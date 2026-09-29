@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/dark_oak_wood",
+  "textures": {
+    "end": "chronodynamics:retro/block/dark_oak_log",
+    "side": "chronodynamics:retro/block/dark_oak_log"
+  }
+}

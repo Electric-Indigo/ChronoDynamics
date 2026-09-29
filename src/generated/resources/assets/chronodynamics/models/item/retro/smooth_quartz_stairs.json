@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/smooth_quartz_stairs",
+  "textures": {
+    "bottom": "chronodynamics:retro/block/quartz_block_bottom",
+    "side": "chronodynamics:retro/block/quartz_block_bottom",
+    "top": "chronodynamics:retro/block/quartz_block_bottom"
+  }
+}

@@ -27,7 +27,7 @@ public class ScannerItem extends Item
     private static final int MIN_Y = -64;
     private static final int MAX_Y = -40;
     private static final int FUEL_PER_REDSTONE = 600;
-    private static final int SCAN_EVERY = 4;
+    private static final int SCAN_EVERY = 40;
 
     public ScannerItem(Properties properties) {
         super(properties);
@@ -40,8 +40,7 @@ public class ScannerItem extends Item
 
         if (player.getMainHandItem() != itemStack && player.getOffhandItem() != itemStack) return;
 
-        long time = level.getGameTime();
-        if (time % SCAN_EVERY != 0) return;
+        if (level.getGameTime() % SCAN_EVERY != 0) return;
 
         int fuel = itemStack.getOrDefault(ModDataComponents.SCANNER_FUEL.get(), 0);
         if (fuel <= 0)
@@ -56,17 +55,9 @@ public class ScannerItem extends Item
         }
         itemStack.set(ModDataComponents.SCANNER_FUEL.get(), fuel - SCAN_EVERY);
 
-        double nearest = findNearestCluster(level, player);
-        if (nearest < 0) return;
-
-        player.sendOverlayMessage(Component.literal("Drift signal: " + Math.round(nearest)));
-
-        int interval = SCAN_EVERY * (1 + (int) Math.round(4 * nearest / RADIUS));
-        if (time % interval == 0)
+        if (isClusterBelow(level, player))
         {
-            float closeness = 1.0F - (float) (nearest / RADIUS);
-            float pitch = 0.5F + 1.5F * Math.max(0.0F, closeness);
-            level.playSound(null, player, SoundEvents.NOTE_BLOCK_PLING, SoundSource.PLAYERS, 1.0F, pitch);
+            level.playSound(null, player, SoundEvents.NOTE_BLOCK_PLING, SoundSource.PLAYERS, 1.0F, 1.0F);
         }
     }
 
@@ -113,7 +104,7 @@ public class ScannerItem extends Item
         return false;
     }
 
-    private static double findNearestCluster(Level level, Player player)
+    private static boolean isClusterBelow(Level level, Player player)
     {
         BlockPos center = player.blockPosition();
         BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();
@@ -130,17 +121,11 @@ public class ScannerItem extends Item
                     pos.set(center.getX() + dx, y, center.getZ() + dz);
                     if (level.getBlockState(pos).is(ModBlocks.CHRONITE_CLUSTER.get()))
                     {
-                        double distX = (pos.getX() + 0.5) - player.getX();
-                        double distZ = (pos.getZ() + 0.5) - player.getZ();
-                        double dist = Math.sqrt(distX * distX + distZ * distZ);
-                        if (best < 0 || dist < best)
-                        {
-                            best = dist;
-                        }
+                        return true;
                     }
                 }
             }
         }
-        return best;
+        return false;
     }
 }

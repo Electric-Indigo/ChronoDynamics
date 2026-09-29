@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/dark_oak_stairs",
+  "textures": {
+    "bottom": "chronodynamics:retro/block/dark_oak_planks",
+    "side": "chronodynamics:retro/block/dark_oak_planks",
+    "top": "chronodynamics:retro/block/dark_oak_planks"
+  }
+}

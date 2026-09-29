@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/purpur_block",
+  "textures": {
+    "all": "chronodynamics:retro/block/purpur_block"
+  }
+}

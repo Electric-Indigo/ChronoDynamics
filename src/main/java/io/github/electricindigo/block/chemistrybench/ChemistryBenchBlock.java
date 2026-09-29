@@ -1,5 +1,7 @@
 package io.github.electricindigo.block.chemistrybench;
 
+import io.github.electricindigo.block.TwoPartDeskBlock;
+import io.github.electricindigo.block.researchdesk.ResearchDeskBlockEntity;
 import io.github.electricindigo.registry.ModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionResult;
@@ -14,7 +16,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jspecify.annotations.Nullable;
 
-public class ChemistryBenchBlock extends Block implements EntityBlock
+public class ChemistryBenchBlock extends TwoPartDeskBlock
 {
 
     public ChemistryBenchBlock(Properties properties)
@@ -23,22 +25,9 @@ public class ChemistryBenchBlock extends Block implements EntityBlock
     }
 
     @Override
-    public @Nullable BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState)
+    protected BlockEntity createPrimaryEntity(BlockPos pos, BlockState state)
     {
-        return new ChemistryBenchBlockEntity(blockPos, blockState);
-    }
-
-    @Override
-    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
-        if (level.isClientSide())
-        {
-            return InteractionResult.SUCCESS;
-        }
-        if (level.getBlockEntity(pos) instanceof ChemistryBenchBlockEntity bench)
-        {
-            player.openMenu(bench);
-        }
-        return InteractionResult.CONSUME;
+        return new ChemistryBenchBlockEntity(pos, state);
     }
 
     @Override

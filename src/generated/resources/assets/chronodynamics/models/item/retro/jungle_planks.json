@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/jungle_planks",
+  "textures": {
+    "all": "chronodynamics:retro/block/jungle_planks"
+  }
+}

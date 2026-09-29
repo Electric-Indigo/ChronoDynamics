@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cobblestone_stairs",
+  "textures": {
+    "bottom": "chronodynamics:retro/block/cobblestone",
+    "side": "chronodynamics:retro/block/cobblestone",
+    "top": "chronodynamics:retro/block/cobblestone"
+  }
+}

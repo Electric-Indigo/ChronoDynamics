@@ -32,9 +32,21 @@ public class ResearchDeskMenu extends AbstractContainerMenu
     };
     public static final int OUTPUT_X = 137, OUTPUT_Y = 51;
 
-    private static final int INV_START = WORKBENCH_SIZE;      // 8
-    private static final int HOTBAR_START = INV_START + 27;   // 35
-    private static final int HOTBAR_END = HOTBAR_START + 9;   // 44
+    // Drawer slots come right after the workbench. The size itself lives in ResearchDeskBlockEntity.DRAWER_SIZE.
+    public static final int DRAWER_START = WORKBENCH_SIZE;                                   // 8
+    public static final int DRAWER_END = DRAWER_START + ResearchDeskBlockEntity.DRAWER_SIZE; // 17 with 9 slots
+
+    // Drawer panel layout, relative to the desk GUI's top-left. It sticks out to the left.
+    public static final int DRAWER_COLUMNS = 3;
+    public static final int DRAWER_ROWS = (ResearchDeskBlockEntity.DRAWER_SIZE + DRAWER_COLUMNS - 1) / DRAWER_COLUMNS;
+    public static final int DRAWER_PADDING = 7;
+    public static final int DRAWER_WIDTH = DRAWER_PADDING * 2 + DRAWER_COLUMNS * 18;
+    public static final int DRAWER_HEIGHT = DRAWER_PADDING * 2 + DRAWER_ROWS * 18;
+    public static final int DRAWER_TOP = 130;
+
+    private static final int INV_START = DRAWER_END;
+    private static final int HOTBAR_START = INV_START + 27;
+    private static final int HOTBAR_END = HOTBAR_START + 9;
 
     private final Player player;
 
@@ -49,13 +61,26 @@ public class ResearchDeskMenu extends AbstractContainerMenu
         }
     };
 
-    // Only the client's screen changes this, when switching tabs
-    private boolean deskSlotsVisible = true;
+    // The desk's drawer. On the server this is the real block entity; on the client it's a stand-in that gets synced.
+    private final Container drawer;
 
+    // Only the client's screen changes these
+    private boolean deskSlotsVisible = true;
+    private boolean drawerOpen = false;
+
+    // Client side (called by the MenuType)
     public ResearchDeskMenu(int containerId, Inventory playerInventory)
     {
+        this(containerId, playerInventory, new SimpleContainer(ResearchDeskBlockEntity.DRAWER_SIZE));
+    }
+
+    // Server side (called by the block entity)
+    public ResearchDeskMenu(int containerId, Inventory playerInventory, Container drawer)
+    {
         super(ModMenuTypes.RESEARCH_DESK_MENU.get(), containerId);
+        checkContainerSize(drawer, ResearchDeskBlockEntity.DRAWER_SIZE);
         this.player = playerInventory.player;
+        this.drawer = drawer;
 
         // Blueprint (or paper) slot, top-left corner of the paper
         addSlot(new DeskSlot(this, workbench, BLUEPRINT_SLOT, 16, 13)
@@ -88,6 +113,14 @@ public class ResearchDeskMenu extends AbstractContainerMenu
                 return false;
             }
         });
+
+        // Drawer slots, laid out in a grid on the pull-out panel
+        for (int i = 0; i < ResearchDeskBlockEntity.DRAWER_SIZE; i++)
+        {
+            int x = -DRAWER_WIDTH + DRAWER_PADDING + 1 + (i % DRAWER_COLUMNS) * 18;
+            int y = DRAWER_TOP + DRAWER_PADDING + 1 + (i / DRAWER_COLUMNS) * 18;
+            addSlot(new DrawerSlot(this, drawer, i, x, y));
+        }
 
         this.addStandardInventorySlots(playerInventory, 36, 137);
     }
@@ -136,6 +169,19 @@ public class ResearchDeskMenu extends AbstractContainerMenu
         return workbench;
     }
 
+    // ---------- Drawer ----------
+
+    // The server never hides slots, only the client's screen does
+    public boolean isDrawerOpen()
+    {
+        return drawerOpen || !player.level().isClientSide();
+    }
+
+    public void setDrawerOpen(boolean open)
+    {
+        this.drawerOpen = open;
+    }
+
     // ---------- Housekeeping ----------
 
     // If the blueprint changes, hand back any parts that no longer belong
@@ -179,14 +225,25 @@ public class ResearchDeskMenu extends AbstractContainerMenu
         ItemStack stack = slot.getItem();
         ItemStack original = stack.copy();
 
-        if (index < INV_START)
+        if (index < WORKBENCH_SIZE)
         {
             // Desk -> player inventory
             if (!moveItemStackTo(stack, INV_START, HOTBAR_END, true)) return ItemStack.EMPTY;
         }
-        else if (stack.is(ModItems.BLUEPRINT.get()) || stack.is(Items.PAPER))
+        else if (index < DRAWER_END)
         {
-            // Blueprints and paper go to the blueprint slot
+            // Drawer -> player inventory
+            if (!moveItemStackTo(stack, INV_START, HOTBAR_END, true)) return ItemStack.EMPTY;
+        }
+        else if (stack.is(ModItems.BLUEPRINT.get()))
+        {
+            // Blueprints go to the blueprint slot, or the drawer if that's taken
+            if (!moveItemStackTo(stack, BLUEPRINT_SLOT, BLUEPRINT_SLOT + 1, false)
+                    && !moveItemStackTo(stack, DRAWER_START, DRAWER_END, false)) return ItemStack.EMPTY;
+        }
+        else if (stack.is(Items.PAPER))
+        {
+            // Paper goes to the blueprint slot
             if (!moveItemStackTo(stack, BLUEPRINT_SLOT, BLUEPRINT_SLOT + 1, false)) return ItemStack.EMPTY;
         }
         else if (!moveItemStackTo(stack, FIRST_PART_SLOT, OUTPUT_SLOT, false))
@@ -210,6 +267,7 @@ public class ResearchDeskMenu extends AbstractContainerMenu
     @Override
     public boolean stillValid(Player player)
     {
-        return true;
+        // Closes the screen if the desk is broken or you walk away, so the drawer can't be emptied twice
+        return drawer.stillValid(player);
     }
 }

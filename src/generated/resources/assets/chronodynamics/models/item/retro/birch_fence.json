@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/birch_fence_inventory",
+  "textures": {
+    "texture": "chronodynamics:retro/block/birch_planks"
+  }
+}

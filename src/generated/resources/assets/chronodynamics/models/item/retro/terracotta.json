@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/terracotta",
+  "textures": {
+    "all": "chronodynamics:retro/block/terracotta"
+  }
+}

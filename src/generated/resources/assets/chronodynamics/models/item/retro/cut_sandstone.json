@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cut_sandstone",
+  "textures": {
+    "end": "chronodynamics:retro/block/sandstone_top",
+    "side": "chronodynamics:retro/block/cut_sandstone"
+  }
+}

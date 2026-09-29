@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/dispenser",
+  "textures": {
+    "front": "chronodynamics:retro/block/dispenser_front",
+    "side": "chronodynamics:retro/block/furnace_side",
+    "top": "chronodynamics:retro/block/furnace_top"
+  }
+}

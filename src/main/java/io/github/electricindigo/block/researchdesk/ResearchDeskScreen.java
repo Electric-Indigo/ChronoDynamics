@@ -31,54 +31,20 @@ import java.util.*;
 
 public class ResearchDeskScreen extends AbstractContainerScreen<ResearchDeskMenu>
 {
-    private static final Identifier TAB_ICONS = Identifier.fromNamespaceAndPath(ChronoDynamics.MODID, "textures/gui/tab_icons.png");
+    private static final Identifier BACKGROUND = Identifier.fromNamespaceAndPath(ChronoDynamics.MODID, "textures/gui/desk_gui.png");
 
-    private static final int TREE_X = 19;
-    private static final int TREE_Y = 8;
-    private static final int TREE_W = 192;
-    private static final int TREE_H = 71;
-    private static final int INFO_H = 24;
+    // Drawer look
+    private static final int DRAWER_WOOD = 0xFF6B4A2E;
+    private static final int DRAWER_EDGE = 0xFF3B2414;
+    private static final int DRAWER_SLOT = 0xFF9C7B5E;
+    private static final int DRAWER_SLOT_DARK = 0xFF4A2F1C;
+    private static final int DRAWER_SLOT_LIGHT = 0xFFD8B894;
+    private static final float DRAWER_SLIDE_MS = 150f; // how long the slide takes
 
-    private static final int NODE_W = 72;
-    private static final int NODE_H = 18;
-
-    private static final String BACK_LABEL = "< Back";
-
-    private enum Tab
-    {
-        DESK(Identifier.fromNamespaceAndPath(ChronoDynamics.MODID, "textures/gui/desk_gui.png"), 0, 0),
-        COMPUTER(Identifier.fromNamespaceAndPath(ChronoDynamics.MODID, "textures/gui/computer_gui.png"), 22, 0),
-        TEST(Identifier.fromNamespaceAndPath(ChronoDynamics.MODID, "textures/gui/test_gui.png"), 44, 0);
-
-        final Identifier background;
-        final int iconU;
-        final int iconV;
-
-        Tab(Identifier background, int iconU, int iconV)
-        {
-            this.background = background;
-            this.iconU = iconU;
-            this.iconV = iconV;
-        }
-    }
-
-    private Tab activeTab = Tab.DESK;
-    private final Map<Tab, TabButton> tabButtons = new EnumMap<>(Tab.class);
-
-    private double panX = 10;
-    private double panY = 0;
-    private boolean panning = false;
-    private @Nullable ResearchNode selectedNode = null;
-
-    private @Nullable ResearchNode infoPageNode = null;
-    private int infoScroll = 0;
-    private int infoMaxScroll = 0;
-
-    private Set<String> unlockedResearch()
-    {
-        var player = Minecraft.getInstance().player;
-        return player == null ? Set.of() : player.getData(ModAttachments.RESEARCH).unlocked();
-    }
+    private boolean drawerWanted = false;   // what the player asked for
+    private float drawerProgress = 0f;      // 0 = shut, 1 = fully out
+    private long lastFrameMs = System.currentTimeMillis();
+    private Button drawerButton;
 
     public ResearchDeskScreen(ResearchDeskMenu menu, Inventory inventory, Component title)
     {
@@ -89,51 +55,77 @@ public class ResearchDeskScreen extends AbstractContainerScreen<ResearchDeskMenu
     protected void init()
     {
         super.init();
-        tabButtons.clear();
-
-        int index = 0;
-        for (Tab tab : Tab.values())
-        {
-            TabButton button = new TabButton(leftPos + 230, topPos + 8 + index * 24, 22, 22,
-                    TAB_ICONS, tab.iconU, tab.iconV, 256, 256,
-                    () -> setTab(tab));
-            addRenderableWidget(button);
-            tabButtons.put(tab, button);
-            index++;
-        }
-
-        updateTabButtonVisibility();
-        menu.setDeskSlotsVisible(activeTab == Tab.DESK);
 
         draftButton = addRenderableWidget(Button.builder(Component.literal("Draft"), b -> draftSelected())
                 .bounds(leftPos + 148, topPos + 94, 64, 20)
                 .build());
 
         assembleButton = addRenderableWidget(Button.builder(Component.literal("Assemble"),
-                b -> ClientPacketDistributor.sendToServer(AssembleBlueprintPayload.INSTANCE))
+                        b -> ClientPacketDistributor.sendToServer(AssembleBlueprintPayload.INSTANCE))
                 .bounds(leftPos + 148, topPos + 94, 64, 20)
+                .build());
+
+        drawerButton = addRenderableWidget(Button.builder(Component.literal(drawerWanted ? ">" : "<"), b -> toggleDrawer())
+                .bounds(leftPos + 12, topPos + 140, 16, 16)
                 .build());
     }
 
-    private void setTab(Tab tab)
+    // ---------- Drawer ----------
+
+    private void toggleDrawer()
     {
-        this.activeTab = tab;
-        this.selectedNode = null;
-        this.infoPageNode = null;
-        this.panning = false;
-        updateTabButtonVisibility();
-        menu.setDeskSlotsVisible(tab == Tab.DESK);
+        drawerWanted = !drawerWanted;
+        drawerButton.setMessage(Component.literal(drawerWanted ? ">" : "<"));
+        if (!drawerWanted)
+        {
+            menu.setDrawerOpen(false); // hide the slots right away when closing
+        }
     }
 
-    private void updateTabButtonVisibility()
+    private void updateDrawerSlide()
     {
-        tabButtons.forEach((tab, button) -> button.visible = tab != activeTab);
+        long now = System.currentTimeMillis();
+        float step = (now - lastFrameMs) / DRAWER_SLIDE_MS;
+        lastFrameMs = now;
+
+        drawerProgress += drawerWanted ? step : -step;
+        drawerProgress = Math.max(0f, Math.min(1f, drawerProgress));
+
+        // Slots only work once it's all the way out
+        menu.setDrawerOpen(drawerWanted && drawerProgress >= 1f);
     }
 
-    private NodeState stateOf(ResearchNode node)
+    private void drawDrawer(GuiGraphicsExtractor graphics)
     {
-        return ResearchTree.stateOf(node, unlockedResearch());
+        if (drawerProgress <= 0f) return;
+
+        int w = ResearchDeskMenu.DRAWER_WIDTH;
+        int h = ResearchDeskMenu.DRAWER_HEIGHT;
+        int top = topPos + ResearchDeskMenu.DRAWER_TOP;
+        int left = leftPos - Math.round(w * drawerProgress); // slides out from behind the desk
+
+        // Only draw the part that has come out from behind the desk
+        graphics.enableScissor(leftPos - w, top, leftPos, top + h);
+
+        graphics.fill(left, top, left + w, top + h, DRAWER_EDGE);
+        graphics.fill(left + 1, top + 1, left + w, top + h - 1, DRAWER_WOOD);
+
+        // Slot backgrounds. The slots' own positions are fixed, so draw these where the panel is right now.
+        int slideOffset = w - Math.round(w * drawerProgress);
+        for (int i = 0; i < ResearchDeskBlockEntity.DRAWER_SIZE; i++)
+        {
+            var slot = menu.slots.get(ResearchDeskMenu.DRAWER_START + i);
+            int sx = leftPos + slot.x - 1 + slideOffset;
+            int sy = topPos + slot.y - 1;
+            graphics.fill(sx, sy, sx + 18, sy + 18, DRAWER_SLOT_DARK);
+            graphics.fill(sx + 1, sy + 1, sx + 18, sy + 18, DRAWER_SLOT_LIGHT);
+            graphics.fill(sx + 1, sy + 1, sx + 17, sy + 17, DRAWER_SLOT);
+        }
+
+        graphics.disableScissor();
     }
+
+    // ---------- Desk ----------
 
     private static final int SLOT_FILL = 0xDC14376E;
     private static final int SLOT_OUTLINE = 0xFFCFE3FA;
@@ -284,13 +276,12 @@ public class ResearchDeskScreen extends AbstractContainerScreen<ResearchDeskMenu
     private void updateDeskButtons()
     {
         var player = minecraft.player;
-        boolean deskTab = activeTab == Tab.DESK;
 
-        boolean drafting = deskTab && blueprintSlotItem().is(Items.PAPER) && selectedDraft != null;
+        boolean drafting = blueprintSlotItem().is(Items.PAPER) && selectedDraft != null;
         draftButton.visible = drafting;
         draftButton.active = drafting && player != null && BlueprintManager.canDraft(player, selectedDraft);
 
-        boolean assembling = deskTab && menu.getReadableBlueprint() != null;
+        boolean assembling = menu.getReadableBlueprint() != null;
         assembleButton.visible = assembling;
         assembleButton.active = assembling && BlueprintManager.canAssemble(menu);
     }
@@ -372,323 +363,19 @@ public class ResearchDeskScreen extends AbstractContainerScreen<ResearchDeskMenu
     @Override
     public void extractBackground(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a)
     {
-        graphics.blit(RenderPipelines.GUI_TEXTURED, activeTab.background, leftPos, topPos, 0, 0, imageWidth, imageHeight, 256, 256);
+        updateDrawerSlide();
+        drawDrawer(graphics);
 
-        if (activeTab == Tab.COMPUTER)
-        {
-            if (infoPageNode != null)
-            {
-                drawInfoPage(graphics, mouseX, mouseY);
-            }
-            else
-            {
-                drawResearchTree(graphics, mouseX, mouseY);
-                drawInfoStrip(graphics);
-            }
-        }
-        if (activeTab == Tab.DESK)
-        {
-            drawDeskSlots(graphics);
-            drawDeskContents(graphics, mouseX, mouseY);
-        }
+        graphics.blit(RenderPipelines.GUI_TEXTURED, BACKGROUND, leftPos, topPos, 0, 0, imageWidth, imageHeight, 256, 256);
+        drawDeskSlots(graphics);
+        drawDeskContents(graphics, mouseX, mouseY);
         updateDeskButtons();
-    }
-
-    // ---------- Tree ----------
-
-    private void drawResearchTree(GuiGraphicsExtractor graphics, int mouseX, int mouseY)
-    {
-        int left = leftPos + TREE_X;
-        int top = topPos + TREE_Y;
-        int right = left + TREE_W;
-        int bottom = top + TREE_H;
-
-        graphics.fill(left, top, right, bottom, 0xFF0A1A14);
-        graphics.enableScissor(left, top, right, bottom);
-
-        int originX = left + (int) panX;
-        int originY = top + (int) panY;
-
-        // Connectors. If a node is visible, all of its prerequisites are too.
-        for (ResearchNode node : ResearchTree.all())
-        {
-            NodeState state = stateOf(node);
-            if (state == NodeState.HIDDEN) continue;
-
-            int color = state == NodeState.PREVIEW ? 0xFF1F3329 : 0xFF55FFAA;
-            for (String preId : node.prerequisites())
-            {
-                ResearchNode parent = ResearchTree.get(preId);
-                if (parent == null) continue;
-
-                drawConnector(graphics,
-                        originX + parent.x() + NODE_W, originY + parent.y() + NODE_H / 2,
-                        originX + node.x(), originY + node.y() + NODE_H / 2,
-                        color);
-            }
-        }
-
-        ResearchNode hovered = nodeAt(mouseX, mouseY);
-
-        for (ResearchNode node : ResearchTree.all())
-        {
-            NodeState state = stateOf(node);
-            if (state == NodeState.HIDDEN) continue;
-
-            int nx = originX + node.x();
-            int ny = originY + node.y();
-
-            // Border always shows the node's state
-            int border;
-            if (state == NodeState.UNLOCKED) border = 0xFF55FFAA;
-            else if (state == NodeState.AVAILABLE) border = 0xFFFFD755;
-            else border = 0xFF2A3F35;
-
-            int bg;
-            if (state == NodeState.PREVIEW) bg = 0xFF0E1E18;
-            else if (node == hovered) bg = 0xFF1E3A30;
-            else bg = 0xFF12261E;
-
-            int textColor = state == NodeState.PREVIEW ? 0xFF4A6A5A : 0xFFFFFFFF;
-
-            // Selection: thin white frame outside the colored border
-            if (node == selectedNode)
-            {
-                graphics.fill(nx - 2, ny - 2, nx + NODE_W + 2, ny + NODE_H + 2, 0xFFFFFFFF);
-            }
-            graphics.fill(nx - 1, ny - 1, nx + NODE_W + 1, ny + NODE_H + 1, border);
-            graphics.fill(nx, ny, nx + NODE_W, ny + NODE_H, bg);
-
-            List<FormattedCharSequence> lines = font.split(Component.literal(node.title()), NODE_W - 6);
-            if (!lines.isEmpty())
-            {
-                graphics.text(font, lines.get(0), nx + 3, ny + 5, textColor);
-            }
-        }
-
-        graphics.disableScissor();
-    }
-
-    private void drawInfoStrip(GuiGraphicsExtractor graphics)
-    {
-        int left = leftPos + TREE_X;
-        int right = left + TREE_W;
-        int top = topPos + TREE_Y + TREE_H;
-        int bottom = top + INFO_H;
-
-        graphics.fill(left, top, right, top + 1, 0xFF3A5A4A);
-        graphics.fill(left, top + 1, right, bottom, 0xFF081410);
-
-        if (selectedNode == null)
-        {
-            graphics.text(font, "Select a research node", left + 4, top + 8, 0xFF6A8A7A);
-            return;
-        }
-
-        ResearchNode node = selectedNode;
-        NodeState state = stateOf(node);
-
-        String status;
-        int statusColor;
-        switch (state)
-        {
-            case UNLOCKED -> { status = "Researched"; statusColor = 0xFF55FFAA; }
-            case AVAILABLE -> { status = "Click to research"; statusColor = 0xFFFFD755; }
-            default -> { status = "Locked"; statusColor = 0xFFFF5555; }
-        }
-
-        graphics.text(font, node.title(), left + 4, top + 3, 0xFFFFFFFF);
-        graphics.text(font, status, right - 4 - font.width(status), top + 3, statusColor);
-
-        String secondLine;
-        if (state == NodeState.PREVIEW)
-        {
-            List<String> missing = new ArrayList<>();
-            for (String preId : node.prerequisites())
-            {
-                ResearchNode pre = ResearchTree.get(preId);
-                if (pre != null && !unlockedResearch().contains(preId)) missing.add(pre.title());
-            }
-            secondLine = "Requires: " + String.join(", ", missing);
-        }
-        else
-        {
-            secondLine = node.description();
-        }
-
-        List<FormattedCharSequence> lines = font.split(Component.literal(secondLine), right - left - 8);
-        if (!lines.isEmpty())
-        {
-            graphics.text(font, lines.get(0), left + 4, top + 13, 0xFFAAAAAA);
-        }
-    }
-
-    private void drawConnector(GuiGraphicsExtractor graphics, int x1, int y1, int x2, int y2, int color)
-    {
-        int midX = (x1 + x2) / 2;
-        hLine(graphics, x1, midX, y1, color);
-        vLine(graphics, midX, y1, y2, color);
-        hLine(graphics, midX, x2, y2, color);
-    }
-
-    private static void hLine(GuiGraphicsExtractor graphics, int xa, int xb, int y, int color)
-    {
-        graphics.fill(Math.min(xa, xb), y, Math.max(xa, xb) + 1, y + 1, color);
-    }
-
-    private static void vLine(GuiGraphicsExtractor graphics, int x, int ya, int yb, int color)
-    {
-        graphics.fill(x, Math.min(ya, yb), x + 1, Math.max(ya, yb) + 1, color);
-    }
-
-    // ---------- Info page ----------
-
-    private void drawInfoPage(GuiGraphicsExtractor graphics, int mouseX, int mouseY)
-    {
-        ResearchNode node = infoPageNode;
-        int left = leftPos + TREE_X;
-        int top = topPos + TREE_Y;
-        int right = left + TREE_W;
-        int bottom = top + TREE_H + INFO_H;
-
-        graphics.fill(left, top, right, bottom, 0xFF081410);
-
-        graphics.text(font, node.title(), left + 4, top + 4, 0xFF55FFAA);
-        int backColor = isOverBack(mouseX, mouseY) ? 0xFFFFFFFF : 0xFFAAAAAA;
-        graphics.text(font, BACK_LABEL, right - 4 - font.width(BACK_LABEL), top + 4, backColor);
-        graphics.fill(left + 4, top + 15, right - 4, top + 16, 0xFF3A5A4A);
-
-        int lineHeight = 10;
-        int wrapWidth = TREE_W - 14;
-        int contentTop = top + 19;
-        // Height rounded down to whole lines, so a line is never cut in half at the edge
-        int contentBottom = contentTop + ((bottom - 4 - contentTop) / lineHeight) * lineHeight;
-
-        // Split on \n ourselves so paragraphs work, then wrap each paragraph to the width
-        List<FormattedCharSequence> lines = new ArrayList<>();
-        for (String paragraph : node.infoText().split("\n"))
-        {
-            lines.addAll(font.split(Component.literal(paragraph), wrapWidth));
-        }
-
-        int contentHeight = lines.size() * lineHeight;
-        int viewHeight = contentBottom - contentTop;
-        infoMaxScroll = Math.max(0, contentHeight - viewHeight);
-        infoScroll = Math.max(0, Math.min(infoScroll, infoMaxScroll));
-
-        graphics.enableScissor(left, contentTop, right, contentBottom);
-        int y = contentTop - infoScroll;
-        for (FormattedCharSequence line : lines)
-        {
-            graphics.text(font, line, left + 4, y, 0xFFDDDDDD);
-            y += lineHeight;
-        }
-        graphics.disableScissor();
-
-        if (infoMaxScroll > 0)
-        {
-            int trackX = right - 4;
-            int thumbHeight = Math.max(10, viewHeight * viewHeight / Math.max(1, contentHeight));
-            int thumbY = contentTop + (viewHeight - thumbHeight) * infoScroll / Math.max(1, infoMaxScroll);
-            graphics.fill(trackX, contentTop, trackX + 2, contentBottom, 0xFF222222);
-            graphics.fill(trackX, thumbY, trackX + 2, thumbY + thumbHeight, 0xFFAAAAAA);
-        }
-    }
-
-    private boolean isOverBack(double mx, double my)
-    {
-        int right = leftPos + TREE_X + TREE_W;
-        int top = topPos + TREE_Y;
-        int backLeft = right - 4 - font.width(BACK_LABEL);
-        return mx >= backLeft - 2 && mx < right - 2 && my >= top + 2 && my < top + 14;
-    }
-
-    private void openInfoPage(ResearchNode node)
-    {
-        infoPageNode = node;
-        infoScroll = 0;
-        panning = false;
-    }
-
-    // ---------- Input ----------
-
-    private boolean isInTree(double mx, double my)
-    {
-        int left = leftPos + TREE_X;
-        int top = topPos + TREE_Y;
-        return mx >= left && mx < left + TREE_W && my >= top && my < top + TREE_H;
-    }
-
-    private boolean isInComputerArea(double mx, double my)
-    {
-        int left = leftPos + TREE_X;
-        int top = topPos + TREE_Y;
-        return mx >= left && mx < left + TREE_W && my >= top && my < top + TREE_H + INFO_H;
-    }
-
-    private @Nullable ResearchNode nodeAt(double mx, double my)
-    {
-        if (!isInTree(mx, my)) return null;
-
-        int originX = leftPos + TREE_X + (int) panX;
-        int originY = topPos + TREE_Y + (int) panY;
-
-        for (ResearchNode node : ResearchTree.all())
-        {
-            if (stateOf(node) == NodeState.HIDDEN) continue;
-
-            int nx = originX + node.x();
-            int ny = originY + node.y();
-            if (mx >= nx && mx < nx + NODE_W && my >= ny && my < ny + NODE_H)
-            {
-                return node;
-            }
-        }
-        return null;
-    }
-
-    private void handleNodeClick(ResearchNode node)
-    {
-        switch (stateOf(node))
-        {
-            case UNLOCKED ->
-            {
-                selectedNode = node;
-                if (node.hasInfoPage()) openInfoPage(node);
-            }
-            case AVAILABLE ->
-            {
-                if (node == selectedNode) ClientPacketDistributor.sendToServer(new UnlockResearchPayload(node.id()));
-                else selectedNode = node;
-            }
-            case PREVIEW -> selectedNode = node;
-            default -> {}
-        }
-    }
-
-    // Only lets you pan as far as the visible nodes go, so hidden ones can't be found by dragging
-    private void clampPan()
-    {
-        int maxX = 0;
-        int maxY = 0;
-        for (ResearchNode node : ResearchTree.all())
-        {
-            if (stateOf(node) == NodeState.HIDDEN) continue;
-            maxX = Math.max(maxX, node.x() + NODE_W);
-            maxY = Math.max(maxY, node.y() + NODE_H);
-        }
-        int margin = 10;
-        double minPanX = Math.min(margin, TREE_W - maxX - margin);
-        double minPanY = Math.min(margin, TREE_H - maxY - margin);
-
-        panX = Math.max(minPanX, Math.min(margin, panX));
-        panY = Math.max(minPanY, Math.min(margin, panY));
     }
 
     @Override
     public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick)
     {
-        if (activeTab == Tab.DESK && event.button() == 1 && blueprintSlotItem().is(Items.PAPER))
+        if (event.button() == 1 && blueprintSlotItem().is(Items.PAPER))
         {
             Blueprint clicked = draftTileAt(event.x(), event.y());
             if (clicked != null)
@@ -697,62 +384,6 @@ public class ResearchDeskScreen extends AbstractContainerScreen<ResearchDeskMenu
                 return true;
             }
         }
-
-        if (activeTab == Tab.COMPUTER && event.button() == 1)
-        {
-            if (infoPageNode != null)
-            {
-                if (isOverBack(event.x(), event.y()))
-                {
-                    infoPageNode = null;
-                    return true;
-                }
-                if (isInComputerArea(event.x(), event.y())) return true;
-            }
-            else if (isInTree(event.x(), event.y()))
-            {
-                ResearchNode clicked = nodeAt(event.x(), event.y());
-                if (clicked != null) handleNodeClick(clicked);
-                else panning = true;
-                return true;
-            }
-        }
         return super.mouseClicked(event, doubleClick);
-    }
-
-    @Override
-    public boolean mouseDragged(MouseButtonEvent event, double dx, double dy)
-    {
-        if (panning)
-        {
-            panX += dx;
-            panY += dy;
-            clampPan();
-            return true;
-        }
-        return super.mouseDragged(event, dx, dy);
-    }
-
-    @Override
-    public boolean mouseReleased(MouseButtonEvent event)
-    {
-        if (panning)
-        {
-            panning = false;
-            return true;
-        }
-        return super.mouseReleased(event);
-    }
-
-    @Override
-    public boolean mouseScrolled(double x, double y, double scrollX, double scrollY)
-    {
-        if (activeTab == Tab.COMPUTER && infoPageNode != null && isInComputerArea(x, y))
-        {
-            infoScroll -= (int) (scrollY * 10);
-            infoScroll = Math.max(0, Math.min(infoScroll, infoMaxScroll));
-            return true;
-        }
-        return super.mouseScrolled(x, y, scrollX, scrollY);
     }
 }

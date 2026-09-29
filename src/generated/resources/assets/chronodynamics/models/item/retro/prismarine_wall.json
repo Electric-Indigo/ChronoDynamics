@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/prismarine_wall_inventory",
+  "textures": {
+    "wall": "chronodynamics:retro/block/prismarine"
+  }
+}

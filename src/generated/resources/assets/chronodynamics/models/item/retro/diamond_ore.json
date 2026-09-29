@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/diamond_ore",
+  "textures": {
+    "all": "chronodynamics:retro/block/diamond_ore"
+  }
+}

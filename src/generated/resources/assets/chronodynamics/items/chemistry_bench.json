@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "chronodynamics:block/chemistry_bench"
+    "model": "chronodynamics:item/chemistry_bench"
   }
 }

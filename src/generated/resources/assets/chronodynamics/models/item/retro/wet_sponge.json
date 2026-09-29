@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/wet_sponge",
+  "textures": {
+    "all": "chronodynamics:retro/block/wet_sponge"
+  }
+}

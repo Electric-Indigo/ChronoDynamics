@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/granite",
+  "textures": {
+    "all": "chronodynamics:retro/block/granite"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/clay",
+  "textures": {
+    "all": "chronodynamics:retro/block/clay"
+  }
+}

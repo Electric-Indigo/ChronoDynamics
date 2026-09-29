@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/obsidian",
+  "textures": {
+    "all": "chronodynamics:retro/block/obsidian"
+  }
+}

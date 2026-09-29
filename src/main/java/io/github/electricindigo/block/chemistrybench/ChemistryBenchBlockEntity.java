@@ -72,7 +72,7 @@ public class ChemistryBenchBlockEntity extends BaseContainerBlockEntity
     @Override
     protected void setItems(NonNullList<ItemStack> nonNullList)
     {
-        this.items = items;
+        this.items = nonNullList;
     }
 
     @Override

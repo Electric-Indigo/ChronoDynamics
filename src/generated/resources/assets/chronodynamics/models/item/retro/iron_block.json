@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/iron_block",
+  "textures": {
+    "all": "chronodynamics:retro/block/iron_block"
+  }
+}

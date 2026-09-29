@@ -1,7 +1,11 @@
 {
   "block.chronodynamics.chemistry_bench": "Chemistry Bench",
   "block.chronodynamics.chronite_cluster": "Chronite Cluster",
+  "block.chronodynamics.computer_desk": "Computer Desk",
   "block.chronodynamics.research_desk": "Research Desk",
+  "chronodynamics.configuration.disableTimeDistortion": "Disable time distortion",
+  "chronodynamics.configuration.reduceRiftFlicker": "Reduce rift flicker",
+  "chronodynamics.configuration.retroBubbleRadius": "Retro bubble radius",
   "creativetab.chronodynamics.chronodynamics_tab": "Chrono Dynamics",
   "item.chronodynamics.blueprint": "Blueprint",
   "item.chronodynamics.blueprint.named": "Blueprint: %s",

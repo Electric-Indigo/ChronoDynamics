@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/birch_fence_gate",
+  "textures": {
+    "texture": "chronodynamics:retro/block/birch_planks"
+  }
+}

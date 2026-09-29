@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "condition": {
+            "type": "minecraft:match_block",
+            "blocks": "chronodynamics:computer_desk",
+            "state": {
+              "part": "primary"
+            }
+          },
+          "name": "chronodynamics:computer_desk"
+        }
+      ],
+      "rolls": 1
+    }
+  ],
+  "random_sequence": "chronodynamics:blocks/computer_desk"
+}

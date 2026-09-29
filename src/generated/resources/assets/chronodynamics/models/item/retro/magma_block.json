@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/magma_block",
+  "textures": {
+    "all": "chronodynamics:retro/block/magma"
+  }
+}

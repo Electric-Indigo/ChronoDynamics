@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/deepslate_coal_ore",
+  "textures": {
+    "all": "chronodynamics:retro/block/deepslate_coal_ore"
+  }
+}

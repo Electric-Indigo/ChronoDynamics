@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/netherrack",
+  "textures": {
+    "all": "chronodynamics:retro/block/netherrack"
+  }
+}

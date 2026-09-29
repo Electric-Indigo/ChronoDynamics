@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/purpur_pillar",
+  "textures": {
+    "end": "chronodynamics:retro/block/purpur_pillar_top",
+    "side": "chronodynamics:retro/block/purpur_pillar_side"
+  }
+}

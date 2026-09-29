@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cobblestone",
+  "textures": {
+    "all": "chronodynamics:retro/block/cobblestone"
+  }
+}

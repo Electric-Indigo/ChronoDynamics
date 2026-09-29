@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/glowstone",
+  "textures": {
+    "all": "chronodynamics:retro/block/glowstone"
+  }
+}

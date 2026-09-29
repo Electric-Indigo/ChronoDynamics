@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/nether_brick_slab",
+  "textures": {
+    "bottom": "chronodynamics:retro/block/nether_bricks",
+    "side": "chronodynamics:retro/block/nether_bricks",
+    "top": "chronodynamics:retro/block/nether_bricks"
+  }
+}

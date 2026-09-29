@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/sand",
+  "textures": {
+    "all": "chronodynamics:retro/block/sand"
+  }
+}

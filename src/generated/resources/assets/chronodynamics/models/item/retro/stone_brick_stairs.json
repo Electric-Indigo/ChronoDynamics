@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stone_brick_stairs",
+  "textures": {
+    "bottom": "chronodynamics:retro/block/stone_bricks",
+    "side": "chronodynamics:retro/block/stone_bricks",
+    "top": "chronodynamics:retro/block/stone_bricks"
+  }
+}

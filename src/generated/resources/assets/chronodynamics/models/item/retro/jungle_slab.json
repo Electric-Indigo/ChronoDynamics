@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/jungle_slab",
+  "textures": {
+    "bottom": "chronodynamics:retro/block/jungle_planks",
+    "side": "chronodynamics:retro/block/jungle_planks",
+    "top": "chronodynamics:retro/block/jungle_planks"
+  }
+}

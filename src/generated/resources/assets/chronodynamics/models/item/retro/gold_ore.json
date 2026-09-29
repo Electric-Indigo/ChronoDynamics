@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/gold_ore",
+  "textures": {
+    "all": "chronodynamics:retro/block/gold_ore"
+  }
+}

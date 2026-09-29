@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/prismarine_stairs",
+  "textures": {
+    "bottom": "chronodynamics:retro/block/prismarine",
+    "side": "chronodynamics:retro/block/prismarine",
+    "top": "chronodynamics:retro/block/prismarine"
+  }
+}

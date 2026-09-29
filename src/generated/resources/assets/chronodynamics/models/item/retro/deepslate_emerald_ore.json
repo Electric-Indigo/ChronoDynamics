@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/deepslate_emerald_ore",
+  "textures": {
+    "all": "chronodynamics:retro/block/deepslate_emerald_ore"
+  }
+}

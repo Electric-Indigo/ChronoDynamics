@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/polished_deepslate_wall_inventory",
+  "textures": {
+    "wall": "chronodynamics:retro/block/polished_deepslate"
+  }
+}

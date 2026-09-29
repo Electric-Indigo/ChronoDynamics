@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/sandstone",
+  "textures": {
+    "bottom": "chronodynamics:retro/block/sandstone_bottom",
+    "side": "chronodynamics:retro/block/sandstone",
+    "top": "chronodynamics:retro/block/sandstone_top"
+  }
+}

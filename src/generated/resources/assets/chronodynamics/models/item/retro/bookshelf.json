@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/bookshelf",
+  "textures": {
+    "end": "chronodynamics:retro/block/oak_planks",
+    "side": "chronodynamics:retro/block/bookshelf"
+  }
+}

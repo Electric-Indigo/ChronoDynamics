@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/birch_planks",
+  "textures": {
+    "all": "chronodynamics:retro/block/birch_planks"
+  }
+}

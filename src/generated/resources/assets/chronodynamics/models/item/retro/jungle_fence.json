@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/jungle_fence_inventory",
+  "textures": {
+    "texture": "chronodynamics:retro/block/jungle_planks"
+  }
+}

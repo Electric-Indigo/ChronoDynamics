@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/redstone_lamp",
+  "textures": {
+    "all": "chronodynamics:retro/block/redstone_lamp"
+  }
+}

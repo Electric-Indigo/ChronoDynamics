@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/furnace",
+  "textures": {
+    "front": "chronodynamics:retro/block/furnace_front",
+    "side": "chronodynamics:retro/block/furnace_side",
+    "top": "chronodynamics:retro/block/furnace_top"
+  }
+}

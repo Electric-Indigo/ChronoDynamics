@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/melon",
+  "textures": {
+    "end": "chronodynamics:retro/block/melon_top",
+    "side": "chronodynamics:retro/block/melon_side"
+  }
+}

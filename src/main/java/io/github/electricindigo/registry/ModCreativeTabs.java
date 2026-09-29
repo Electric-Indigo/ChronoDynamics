@@ -49,6 +49,7 @@ public class ModCreativeTabs
                         //Workstations
                         output.accept(ModBlocks.RESEARCH_DESK.get());
                         output.accept(ModBlocks.CHEMISTRY_BENCH.get());
+                        output.accept(ModBlocks.COMPUTER_DESK.get());
                     })
                     .build()
     );

@@ -1,0 +1,14 @@
+{
+  "model": {
+    "type": "minecraft:condition",
+    "on_false": {
+      "type": "minecraft:model",
+      "model": "minecraft:item/zombie_villager_spawn_egg"
+    },
+    "on_true": {
+      "type": "minecraft:model",
+      "model": "chronodynamics:item/retro/zombie_villager_spawn_egg"
+    },
+    "property": "chronodynamics:rift_retro"
+  }
+}

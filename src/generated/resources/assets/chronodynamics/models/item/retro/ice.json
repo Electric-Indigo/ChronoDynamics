@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/ice",
+  "textures": {
+    "all": "chronodynamics:retro/block/ice"
+  }
+}

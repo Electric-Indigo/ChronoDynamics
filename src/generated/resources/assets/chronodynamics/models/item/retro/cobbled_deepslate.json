@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cobbled_deepslate",
+  "textures": {
+    "all": "chronodynamics:retro/block/cobbled_deepslate"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/coal_ore",
+  "textures": {
+    "all": "chronodynamics:retro/block/coal_ore"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/note_block",
+  "textures": {
+    "all": "chronodynamics:retro/block/note_block"
+  }
+}

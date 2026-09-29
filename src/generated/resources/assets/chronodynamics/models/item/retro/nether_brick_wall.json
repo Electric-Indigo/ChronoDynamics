@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/nether_brick_wall_inventory",
+  "textures": {
+    "wall": "chronodynamics:retro/block/nether_bricks"
+  }
+}

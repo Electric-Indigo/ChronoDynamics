@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/red_nether_bricks",
+  "textures": {
+    "all": "chronodynamics:retro/block/red_nether_bricks"
+  }
+}

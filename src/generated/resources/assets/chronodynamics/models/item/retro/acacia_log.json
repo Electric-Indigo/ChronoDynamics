@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/acacia_log",
+  "textures": {
+    "end": "chronodynamics:retro/block/acacia_log_top",
+    "side": "chronodynamics:retro/block/acacia_log"
+  }
+}

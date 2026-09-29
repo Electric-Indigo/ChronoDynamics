@@ -1,5 +1,6 @@
 package io.github.electricindigo.research;
 
+import io.github.electricindigo.block.computerdesk.ComputerDeskMenu;
 import io.github.electricindigo.block.researchdesk.ResearchDeskMenu;
 import io.github.electricindigo.registry.ModAttachments;
 import io.github.electricindigo.research.tree.NodeState;
@@ -13,7 +14,7 @@ public final class ResearchManager
 
     public static void tryUnlock(ServerPlayer player, String nodeId)
     {
-        if (!(player.containerMenu instanceof ResearchDeskMenu)) return;
+        if (!(player.containerMenu instanceof ComputerDeskMenu)) return;
 
         ResearchNode node = ResearchTree.get(nodeId);
         if (node == null) return;

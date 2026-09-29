@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/dark_oak_pressure_plate",
+  "textures": {
+    "texture": "chronodynamics:retro/block/dark_oak_planks"
+  }
+}

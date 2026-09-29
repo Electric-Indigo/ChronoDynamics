@@ -1,6 +1,8 @@
 package io.github.electricindigo;
 
 import io.github.electricindigo.block.chemistrybench.ChemistryBenchScreen;
+import io.github.electricindigo.block.computerdesk.ComputerDeskScreen;
+import io.github.electricindigo.distortion.SicknessManager;
 import io.github.electricindigo.registry.*;
 import io.github.electricindigo.block.researchdesk.ResearchDeskScreen;
 import io.github.electricindigo.command.DebugPuzzleCommand;
@@ -13,6 +15,7 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.neoforged.fml.config.ModConfig;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
@@ -33,8 +36,11 @@ public class ChronoDynamics
     public ChronoDynamics(IEventBus modEventBus, ModContainer modContainer)
     {
         NeoForge.EVENT_BUS.addListener(this::onRegisterCommands);
+        NeoForge.EVENT_BUS.addListener(SicknessManager::onPlayerTick);
+        NeoForge.EVENT_BUS.addListener(SicknessManager::onCanContinueSleeping);
         modEventBus.addListener(this::onGatherDataClient);
         modEventBus.addListener(this::onRegisterMenuScreens);
+
         ModNetworking.register(modEventBus);
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
@@ -50,6 +56,7 @@ public class ChronoDynamics
     {
         event.register(ModMenuTypes.RESEARCH_DESK_MENU.get(), ResearchDeskScreen::new);
         event.register(ModMenuTypes.CHEMISTRY_BENCH_MENU.get(), ChemistryBenchScreen::new);
+        event.register(ModMenuTypes.COMPUTER_DESK_MENU.get(), ComputerDeskScreen::new);
     }
 
     private void onRegisterCommands(RegisterCommandsEvent event)

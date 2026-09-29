@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/purpur_slab",
+  "textures": {
+    "bottom": "chronodynamics:retro/block/purpur_block",
+    "side": "chronodynamics:retro/block/purpur_block",
+    "top": "chronodynamics:retro/block/purpur_block"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/brown_mushroom_block_inventory",
+  "textures": {
+    "all": "chronodynamics:retro/block/brown_mushroom_block"
+  }
+}

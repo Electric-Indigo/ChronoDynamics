@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/acacia_fence_inventory",
+  "textures": {
+    "texture": "chronodynamics:retro/block/acacia_planks"
+  }
+}

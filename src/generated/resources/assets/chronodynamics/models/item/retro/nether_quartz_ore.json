@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/nether_quartz_ore",
+  "textures": {
+    "all": "chronodynamics:retro/block/nether_quartz_ore"
+  }
+}

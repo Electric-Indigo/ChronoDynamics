@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/sticky_piston_inventory",
+  "textures": {
+    "bottom": "chronodynamics:retro/block/piston_bottom",
+    "side": "chronodynamics:retro/block/piston_side",
+    "top": "chronodynamics:retro/block/piston_top_sticky"
+  }
+}

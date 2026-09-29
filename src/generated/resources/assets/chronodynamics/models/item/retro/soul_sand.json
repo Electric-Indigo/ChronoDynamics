@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/soul_sand",
+  "textures": {
+    "all": "chronodynamics:retro/block/soul_sand"
+  }
+}

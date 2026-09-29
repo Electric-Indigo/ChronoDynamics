@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/hay_block",
+  "textures": {
+    "end": "chronodynamics:retro/block/hay_block_top",
+    "side": "chronodynamics:retro/block/hay_block_side"
+  }
+}

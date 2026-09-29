@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/coal_block",
+  "textures": {
+    "all": "chronodynamics:retro/block/coal_block"
+  }
+}

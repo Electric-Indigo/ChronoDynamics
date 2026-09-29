@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/snow_block",
+  "textures": {
+    "all": "chronodynamics:retro/block/snow"
+  }
+}

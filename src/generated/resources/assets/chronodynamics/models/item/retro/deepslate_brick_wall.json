@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/deepslate_brick_wall_inventory",
+  "textures": {
+    "wall": "chronodynamics:retro/block/deepslate_bricks"
+  }
+}

@@ -1,7 +1,34 @@
 {
   "variants": {
-    "": {
-      "model": "chronodynamics:block/chemistry_bench"
+    "facing=east,part=primary": {
+      "model": "chronodynamics:block/chemistry_bench_primary",
+      "y": 90
+    },
+    "facing=east,part=secondary": {
+      "model": "chronodynamics:block/chemistry_bench_secondary",
+      "y": 90
+    },
+    "facing=north,part=primary": {
+      "model": "chronodynamics:block/chemistry_bench_primary"
+    },
+    "facing=north,part=secondary": {
+      "model": "chronodynamics:block/chemistry_bench_secondary"
+    },
+    "facing=south,part=primary": {
+      "model": "chronodynamics:block/chemistry_bench_primary",
+      "y": 180
+    },
+    "facing=south,part=secondary": {
+      "model": "chronodynamics:block/chemistry_bench_secondary",
+      "y": 180
+    },
+    "facing=west,part=primary": {
+      "model": "chronodynamics:block/chemistry_bench_primary",
+      "y": 270
+    },
+    "facing=west,part=secondary": {
+      "model": "chronodynamics:block/chemistry_bench_secondary",
+      "y": 270
     }
   }
 }

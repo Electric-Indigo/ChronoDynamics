@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/bone_block",
+  "textures": {
+    "end": "chronodynamics:retro/block/bone_block_top",
+    "side": "chronodynamics:retro/block/bone_block_side"
+  }
+}

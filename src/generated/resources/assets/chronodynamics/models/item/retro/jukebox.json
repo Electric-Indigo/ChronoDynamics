@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/jukebox",
+  "textures": {
+    "side": "chronodynamics:retro/block/jukebox_side",
+    "top": "chronodynamics:retro/block/jukebox_top"
+  }
+}

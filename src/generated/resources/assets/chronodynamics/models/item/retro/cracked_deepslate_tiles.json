@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cracked_deepslate_tiles",
+  "textures": {
+    "all": "chronodynamics:retro/block/cracked_deepslate_tiles"
+  }
+}

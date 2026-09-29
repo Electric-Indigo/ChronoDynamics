@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/smooth_sandstone",
+  "textures": {
+    "all": "chronodynamics:retro/block/sandstone_top"
+  }
+}

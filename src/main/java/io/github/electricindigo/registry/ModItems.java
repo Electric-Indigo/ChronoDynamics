@@ -45,6 +45,7 @@ public class ModItems
     public static final DeferredItem<BlockItem> CHRONITE_CLUSTER_ITEM = ITEMS.registerSimpleBlockItem(ModBlocks.CHRONITE_CLUSTER);
     public static final DeferredItem<BlockItem> RESEARCH_DESK_ITEM = ITEMS.registerSimpleBlockItem(ModBlocks.RESEARCH_DESK);
     public static final DeferredItem<BlockItem> CHEMISTRY_BENCH_ITEM = ITEMS.registerSimpleBlockItem(ModBlocks.CHEMISTRY_BENCH);
+    public static final DeferredItem<BlockItem> COMPUTER_DESK_ITEM = ITEMS.registerSimpleBlockItem(ModBlocks.COMPUTER_DESK);
 
 
     public static void register(IEventBus modEventBus)

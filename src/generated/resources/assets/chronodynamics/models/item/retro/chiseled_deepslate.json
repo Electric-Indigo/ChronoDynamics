@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/chiseled_deepslate",
+  "textures": {
+    "all": "chronodynamics:retro/block/chiseled_deepslate"
+  }
+}

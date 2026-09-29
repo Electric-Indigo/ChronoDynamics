@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/polished_diorite_slab",
+  "textures": {
+    "bottom": "chronodynamics:retro/block/polished_diorite",
+    "side": "chronodynamics:retro/block/polished_diorite",
+    "top": "chronodynamics:retro/block/polished_diorite"
+  }
+}

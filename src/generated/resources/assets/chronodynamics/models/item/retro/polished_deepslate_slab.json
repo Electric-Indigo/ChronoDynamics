@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/polished_deepslate_slab",
+  "textures": {
+    "bottom": "chronodynamics:retro/block/polished_deepslate",
+    "side": "chronodynamics:retro/block/polished_deepslate",
+    "top": "chronodynamics:retro/block/polished_deepslate"
+  }
+}

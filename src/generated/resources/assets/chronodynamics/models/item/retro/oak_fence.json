@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/oak_fence_inventory",
+  "textures": {
+    "texture": "chronodynamics:retro/block/oak_planks"
+  }
+}
