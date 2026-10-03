@@ -45,6 +45,7 @@ public class ChronoDynamics
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
         ModFluids.register(modEventBus);
+        ModFluidTypes.register(modEventBus);
         ModBlockEntities.register(modEventBus);
         ModMenuTypes.register(modEventBus);
         ModCreativeTabs.register(modEventBus);

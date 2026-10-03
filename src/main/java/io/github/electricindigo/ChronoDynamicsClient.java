@@ -32,32 +32,10 @@ public class ChronoDynamicsClient
         modContainer.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
         NeoForge.EVENT_BUS.addListener(TimeDistortion::onClientTick);
         NeoForge.EVENT_BUS.addListener(RetroBlocks::onClientTick);
-        modEventBus.addListener(ChronoDynamicsClient::onRegisterFluidModels);
     }
 
     private static void onRegisterItemConditions(RegisterConditionalItemModelPropertyEvent event)
     {
         event.register(Identifier.fromNamespaceAndPath(ChronoDynamics.MODID, "rift_retro"), RiftRetroProperty.MAP_CODEC);
-    }
-
-    private static void onRegisterFluidModels(RegisterFluidModelsEvent event)
-    {
-        for (ModFluids.ModFluid fluid : ModFluids.ALL)
-        {
-            Identifier still = fluid.customTextures()
-                    ? Identifier.fromNamespaceAndPath(ChronoDynamics.MODID, "block/fluid/" + fluid.name() + "_still")
-                    : Identifier.withDefaultNamespace("block/water_still");
-            Identifier flow = fluid.customTextures()
-                    ? Identifier.fromNamespaceAndPath(ChronoDynamics.MODID, "block/fluid/" + fluid.name() + "_flow")
-                    : Identifier.withDefaultNamespace("block/water_flow");
-            Identifier overlay = fluid.customTextures() ? still : Identifier.withDefaultNamespace("block/water_overlay");
-
-            event.register(new FluidModel.Unbaked(
-                            new Material(still, true),
-                            new Material(flow, true),
-                            new Material(overlay, true),
-                            FluidTintSources.constant(fluid.color())),
-                    fluid.source().value(), fluid.flowing().value());
-        }
     }
 }

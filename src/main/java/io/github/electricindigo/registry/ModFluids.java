@@ -17,57 +17,40 @@ import net.neoforged.neoforge.registries.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Supplier;
 
 public final class ModFluids
 {
-    public static final DeferredRegister<FluidType> FLUID_TYPES =
-            DeferredRegister.create(NeoForgeRegistries.Keys.FLUID_TYPES, ChronoDynamics.MODID);
-
     public static final DeferredRegister<Fluid> FLUIDS =
             DeferredRegister.create(BuiltInRegistries.FLUID, ChronoDynamics.MODID);
 
-    public record ModFluid(String name,
-                           DeferredHolder<FluidType, FluidType> type,
-                           DeferredHolder<Fluid, FlowingFluid> source,
-                           DeferredHolder<Fluid, FlowingFluid> flowing,
-                           DeferredBlock<LiquidBlock> block,
-                           DeferredItem<BucketItem> bucket,
-                           int color,
-                           boolean customTextures){}
 
-    public static final List<ModFluid> ALL = new ArrayList<>();
 
-    public static final ModFluid SULFURIC_ACID = register("sulfuric_acid", 0xD0D8E04A, false);
-    public static final ModFluid CHRONITE_SLURRY = register("chronite_slurry", 0xFFFFFFFF, true);
+   // public static final ModFluid SULFURIC_ACID = register("sulfuric_acid", 0xD0D8E04A, false);
+   // public static final ModFluid CHRONITE_SLURRY = register("chronite_slurry", 0xFFFFFFFF, true);
 
-    private ModFluids(){}
+    public static final Supplier<FlowingFluid> CHRONITE_SLURRY_SOURCE = FLUIDS.register("chronite_slurry",
+            () -> new BaseFlowingFluid.Source(ModFluids.CHRONITE_SLURRY_PROPS));
+    public static final Supplier<FlowingFluid> CHRONITE_SLURRY_FLOWING = FLUIDS.register("chronite_slurry_flowing",
+            () -> new BaseFlowingFluid.Flowing(ModFluids.CHRONITE_SLURRY_PROPS));
 
-    private static ModFluid register(String name, int color, boolean customTextures)
-    {
-        BaseFlowingFluid.Properties[] props = new BaseFlowingFluid.Properties[1];
+    public static final Supplier<FlowingFluid> SULFURIC_ACID_SOURCE = FLUIDS.register("sulfuric_acid",
+            () -> new BaseFlowingFluid.Source(ModFluids.SULFURIC_ACID_PROPS));
+    public static final Supplier<FlowingFluid> SULFURIC_ACID_FLOWING = FLUIDS.register("sulfuric_acid_flowing",
+            () -> new BaseFlowingFluid.Flowing(ModFluids.SULFURIC_ACID_PROPS));
 
-        DeferredHolder<FluidType, FluidType> type =
-                FLUID_TYPES.register(name, () -> new FluidType(FluidType.Properties.create()));
-        DeferredHolder<Fluid, FlowingFluid> source =
-                FLUIDS.register(name, () -> new BaseFlowingFluid.Source(props[0]));
-        DeferredHolder<Fluid, FlowingFluid> flowing =
-                FLUIDS.register(name + "_flowing", () -> new BaseFlowingFluid.Flowing(props[0]));
-        DeferredBlock<LiquidBlock> block = ModBlocks.BLOCKS.registerBlock(name,
-                p -> new LiquidBlock(source.value(),
-                        p.mapColor(MapColor.WATER).replaceable().noCollision().strength(100.0F).pushReaction(PushReaction.POPPED).noLootTable().liquid().sound(SoundType.EMPTY)));
-        DeferredItem<BucketItem> bucket = ModItems.ITEMS.registerItem(name + "_bucket",
-                p -> new BucketItem(source.value(), p.craftRemainder(Items.BUCKET).stacksTo(1)));
+    private static final BaseFlowingFluid.Properties CHRONITE_SLURRY_PROPS = new BaseFlowingFluid.Properties(
+            ModFluidTypes.CHRONITE_SLURRY_FLUID_TYPE, CHRONITE_SLURRY_SOURCE, CHRONITE_SLURRY_FLOWING)
+            .slopeFindDistance(2).levelDecreasePerBlock(1)
+            .block(ModBlocks.CHRONITE_SLURRY_LIQUID_BLOCK).bucket(ModItems.CHRONITE_SLURRY_BUCKET);
 
-        props[0] = new BaseFlowingFluid.Properties(type, source, flowing).bucket(bucket).block(block);
-
-        ModFluid fluid = new ModFluid(name, type, source, flowing, block, bucket, color, customTextures);
-        ALL.add(fluid);
-        return fluid;
-    }
+    private static final BaseFlowingFluid.Properties SULFURIC_ACID_PROPS = new BaseFlowingFluid.Properties(
+            ModFluidTypes.SULFURIC_ACID_FLUID_TYPE, SULFURIC_ACID_SOURCE, SULFURIC_ACID_FLOWING)
+            .slopeFindDistance(2).levelDecreasePerBlock(1)
+            .block(ModBlocks.SULFURIC_ACID_LIQUID_BLOCK).bucket(ModItems.SULFURIC_ACID_BUCKET);
 
     public static void register(IEventBus modEventBus)
     {
-        FLUID_TYPES.register(modEventBus);
         FLUIDS.register(modEventBus);
     }
 }

@@ -48,12 +48,12 @@ public class ModModelProvider extends ModelProvider
         blockModels.createAmethystCluster(ModBlocks.CHRONITE_CLUSTER.get());
         itemModels.generateFlatItem(ModItems.CHRONITE_CLUSTER_ITEM.get(), ModelTemplates.FLAT_ITEM);
 
-        for (ModFluids.ModFluid fluid : ModFluids.ALL)
+       /* for (ModFluids.ModFluid fluid : ModFluids.ALL)
         {
             itemModels.generateFlatItem(fluid.bucket().get(), ModelTemplates.FLAT_ITEM);
             blockModels.blockStateOutput.accept(MultiVariantGenerator.dispatch(fluid.block().get(),
                     blockModels.plainVariant(Identifier.withDefaultNamespace("block/water"))));
-        }
+        }*/
 
         //RESEARCH DESK//
         Identifier primaryResearchModel = ModelLocationUtils.getModelLocation(ModBlocks.RESEARCH_DESK.get(), "_primary");
