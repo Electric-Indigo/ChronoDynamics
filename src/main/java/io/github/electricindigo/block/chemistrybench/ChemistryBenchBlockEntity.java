@@ -7,10 +7,12 @@ import io.github.electricindigo.registry.ModItems;
 import io.github.electricindigo.registry.ModRecipes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.Containers;
+import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
@@ -23,6 +25,21 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.transfer.RangedResourceHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.ResourceHandlerUtil;
+import net.neoforged.neoforge.transfer.access.ItemAccess;
+import net.neoforged.neoforge.transfer.fluid.FluidResource;
+import net.neoforged.neoforge.transfer.fluid.FluidStacksResourceHandler;
+import net.neoforged.neoforge.transfer.fluid.FluidUtil;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.item.VanillaContainerWrapper;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
+import org.jspecify.annotations.Nullable;
+
+import java.util.function.Predicate;
 
 public class ChemistryBenchBlockEntity extends BaseContainerBlockEntity
 {
@@ -31,9 +48,27 @@ public class ChemistryBenchBlockEntity extends BaseContainerBlockEntity
     public static final int INPUT_3 = 2;
     public static final int FUEL = 3;
     public static final int OUTPUT = 4;
-    public static final int SLOT_COUNT = 5;
+    public static final int SOLVENT_CONTAINER = 5;
+    public static final int PRODUCT_EMPTY = 6;
+    public static final int PRODUCT_FILLED = 7;
+    public static final int SLOT_COUNT = 8;
+
+    public static final int SOLVENT_TANK = 0;
+    public static final int PRODUCT_TANK = 1;
+    public static final int TANK_CAPACITY = 4000;
 
     private NonNullList<ItemStack> items = NonNullList.withSize(SLOT_COUNT, ItemStack.EMPTY);
+    private final FluidStacksResourceHandler tanks = new FluidStacksResourceHandler(2, TANK_CAPACITY)
+    {
+        @Override
+        protected void onContentsChanged(int index, FluidStack previousContents)
+        {
+            setChanged();
+        }
+    };
+
+    private final ResourceHandler<FluidResource> solventTank = RangedResourceHandler.ofSingleIndex(tanks, SOLVENT_TANK);
+    private final ResourceHandler<FluidResource> productTank = RangedResourceHandler.ofSingleIndex(tanks, PRODUCT_TANK);
 
     public static final int ROOM_TEMP = 20;
     private static final int HEAT_RATE = 2;
@@ -97,6 +132,7 @@ public class ChemistryBenchBlockEntity extends BaseContainerBlockEntity
         burnTime = input.getIntOr("burn_time", 0);
         burnTimeTotal = input.getIntOr("burn_time_total", 0);
         fuelMaxTemp = input.getIntOr("fuel_max_temp", 0);
+        tanks.deserialize(input);
     }
 
     @Override
@@ -108,6 +144,7 @@ public class ChemistryBenchBlockEntity extends BaseContainerBlockEntity
         output.putInt("burn_time", burnTime);
         output.putInt("burn_time_total", burnTimeTotal);
         output.putInt("fuel_max_temp", fuelMaxTemp);
+        tanks.serialize(output);
     }
 
     private final ContainerData data = new ContainerData()
@@ -123,6 +160,10 @@ public class ChemistryBenchBlockEntity extends BaseContainerBlockEntity
                 case 4 -> progressTotal;
                 case 5 -> minHeat;
                 case 6 -> maxHeat;
+                case 7 -> BuiltInRegistries.FLUID.getId(tanks.getResource(SOLVENT_TANK).getFluid());
+                case 8 -> tanks.getAmountAsInt(SOLVENT_TANK);
+                case 9 -> BuiltInRegistries.FLUID.getId(tanks.getResource(PRODUCT_TANK).getFluid());
+                case 10 -> tanks.getAmountAsInt(PRODUCT_TANK);
                 default -> 0;
             };
         }
@@ -145,7 +186,7 @@ public class ChemistryBenchBlockEntity extends BaseContainerBlockEntity
         @Override
         public int getCount()
         {
-            return 7;
+            return 11;
         }
     };
 
@@ -153,16 +194,18 @@ public class ChemistryBenchBlockEntity extends BaseContainerBlockEntity
     {
         if (!(level instanceof ServerLevel serverLevel)) return;
 
+        bench.handleFluidContainers();
         int oldTemp = bench.temperature;
         int oldBurn = bench.burnTime;
         int oldProgress = bench.progress;
 
         // 1. What recipe is loaded, and is there room for the result?
-        ChemistryInput input = new ChemistryInput(bench.items.get(INPUT_1), bench.items.get(INPUT_2), bench.items.get(INPUT_3));
-        ChemistryRecipe recipe = input.isEmpty() ? null
+        ChemistryInput input = new ChemistryInput(bench.items.get(INPUT_1), bench.items.get(INPUT_2),
+                bench.items.get(INPUT_3), FluidUtil.getStack(bench.tanks, SOLVENT_TANK));
+        ChemistryRecipe recipe = input.nonEmptyItems().isEmpty() ? null
                 : bench.quickCheck.getRecipeFor(input, serverLevel).map(RecipeHolder::value).orElse(null);
         ItemStack result = recipe != null ? recipe.assemble(input) : ItemStack.EMPTY;
-        boolean canWork = recipe != null && bench.canOutput(result);
+        boolean canWork = recipe != null && bench.canOutput(result) && bench.canTakeFluid(recipe.fluidResult());
 
         // 2. Fuel: only burns while there's a valid recipe to work on
         if (bench.burnTime > 0)
@@ -202,7 +245,7 @@ public class ChemistryBenchBlockEntity extends BaseContainerBlockEntity
 
             if (bench.temperature > recipe.maxHeat())
             {
-                if (bench.progress > 0) bench.ruin(level, pos); // too hot mid-craft: burnt ash
+                if (bench.progress > 0) bench.ruin(level, pos, recipe); // too hot mid-craft: burnt ash
             }
             else if (bench.temperature < recipe.minHeat())
             {
@@ -213,7 +256,7 @@ public class ChemistryBenchBlockEntity extends BaseContainerBlockEntity
                 bench.progress++;
                 if (bench.progress >= recipe.time())
                 {
-                    bench.finish(result);
+                    bench.finish(result, recipe);
                 }
             }
         }
@@ -233,9 +276,8 @@ public class ChemistryBenchBlockEntity extends BaseContainerBlockEntity
 
     private boolean canOutput(ItemStack stack)
     {
-        ItemStack out = items.get(OUTPUT);
-        if (out.isEmpty()) return true;
-        return ItemStack.isSameItemSameComponents(out, stack) && out.getCount() + stack.getCount() <= out.getMaxStackSize();
+        if (stack.isEmpty()) return true; // fluid-only recipes don't need the output slot
+        return canFit(OUTPUT, stack);
     }
 
     private void putInOutput(ItemStack stack)
@@ -253,25 +295,117 @@ public class ChemistryBenchBlockEntity extends BaseContainerBlockEntity
         }
     }
 
-    private void finish(ItemStack result)
+    private void finish(ItemStack result, ChemistryRecipe recipe)
     {
         useInputs();
-        putInOutput(result);
+        useSolvent(recipe);
+        if (!result.isEmpty()) putInOutput(result);
+        addFluidResult(recipe);
         progress = 0;
     }
 
-    private void ruin(Level level, BlockPos pos)
+    private void ruin(Level level, BlockPos pos, ChemistryRecipe recipe)
     {
         useInputs();
+        useSolvent(recipe); // overheating wastes the solvent too
         ItemStack ash = new ItemStack(ModItems.BURNT_ASH.get());
-        if (canOutput(ash))
+        if (canFit(OUTPUT, ash))
         {
             putInOutput(ash);
         }
         else
         {
-            Containers.dropItemStack(level, pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5, ash); // output blocked, pop it out
+            Containers.dropItemStack(level, pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5, ash);
         }
         progress = 0;
+    }
+
+    private void handleFluidContainers()
+    {
+        ItemStack solventStack = items.get(SOLVENT_CONTAINER);
+        if (solventStack.getCount() == 1)
+        {
+            ItemStack emptied =  tryFluidTransfer(solventStack, true, stack -> true);
+            if (emptied != null)
+            {
+                items.set(SOLVENT_CONTAINER, emptied);
+            }
+        }
+
+        ItemStack emptyStack = items.get(PRODUCT_EMPTY);
+        if (!emptyStack.isEmpty() && tanks.getAmountAsInt(PRODUCT_TANK) > 0)
+        {
+            ItemStack filled = tryFluidTransfer(emptyStack, false, stack -> canFit(PRODUCT_FILLED, stack));
+            if (filled != null)
+            {
+                emptyStack.shrink(1);
+                ItemStack out = items.get(PRODUCT_FILLED);
+                if (out.isEmpty()) items.set(PRODUCT_FILLED, filled);
+                else out.grow(filled.getCount());
+                setChanged();
+            }
+        }
+    }
+
+    @Nullable
+    private ItemStack tryFluidTransfer(ItemStack stack, boolean intoSolventTank, Predicate<ItemStack> resultFits)
+    {
+        SimpleContainer temp = new SimpleContainer(stack.copyWithCount(1));
+        ResourceHandler<ItemResource> tempHandler = VanillaContainerWrapper.of(temp);
+        ResourceHandler<FluidResource> itemFluids =
+                ItemAccess.forHandlerIndexStrict(tempHandler, 0).getCapability(Capabilities.Fluid.ITEM);
+        if (itemFluids == null) return null;
+
+        try(Transaction tx = Transaction.openRoot())
+        {
+            int moved = intoSolventTank
+                    ? ResourceHandlerUtil.move(itemFluids, solventTank, fluid -> true, TANK_CAPACITY, tx)
+                    : ResourceHandlerUtil.move(productTank, itemFluids, fluid -> true, TANK_CAPACITY, tx);
+            if (moved <= 0) return null;
+
+            ItemStack result = temp.getItem(0).copy();
+            if (!resultFits.test(result)) return null;
+            tx.commit();
+            return result;
+        }
+    }
+
+    private boolean canFit(int slot, ItemStack stack)
+    {
+        ItemStack current = items.get(slot);
+        if (current.isEmpty()) return true;
+        return ItemStack.isSameItemSameComponents(current, stack)
+                && current.getCount() + stack.getCount() <= current.getMaxStackSize();
+    }
+
+    private boolean canTakeFluid(FluidStack fluid)
+    {
+        if (fluid.isEmpty()) return true;
+        try (Transaction tx = Transaction.openRoot()) // never committed, so this is just a test
+        {
+            return productTank.insert(FluidResource.of(fluid), fluid.getAmount(), tx) == fluid.getAmount();
+        }
+    }
+
+    private void useSolvent(ChemistryRecipe recipe)
+    {
+        recipe.solvent().ifPresent(solvent -> {
+            try (Transaction tx = Transaction.openRoot())
+            {
+                solventTank.extract(tanks.getResource(SOLVENT_TANK), solvent.amount(), tx);
+                tx.commit();
+            }
+        });
+    }
+
+    private void addFluidResult(ChemistryRecipe recipe)
+    {
+        FluidStack fluid = recipe.fluidResult();
+        if (fluid.isEmpty()) return;
+        try (Transaction tx = Transaction.openRoot())
+        {
+            productTank.insert(FluidResource.of(fluid), fluid.getAmount(), tx);
+            tx.commit();
+        }
     }
 }

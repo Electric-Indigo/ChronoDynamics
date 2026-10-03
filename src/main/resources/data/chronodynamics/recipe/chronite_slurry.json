@@ -1,0 +1,19 @@
+{
+  "type": "chronodynamics:chemistry",
+  "ingredients": [
+    "chronodynamics:resonant_amethyst",
+    "chronodynamics:purified_quartz",
+    "minecraft:sculk"
+  ],
+  "solvent": {
+    "ingredient": "chronodynamics:sulfuric_acid",
+    "amount": 500
+  },
+  "fluid_result": {
+    "id": "chronodynamics:chronite_slurry",
+    "amount": 500
+  },
+  "min_heat": 400,
+  "max_heat": 550,
+  "time": 300
+}

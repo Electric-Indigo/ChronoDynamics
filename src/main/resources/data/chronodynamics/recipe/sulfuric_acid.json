@@ -1,0 +1,18 @@
+{
+  "type": "chronodynamics:chemistry",
+  "ingredients": [
+    "minecraft:sulfur",
+    "minecraft:sulfur"
+  ],
+  "solvent": {
+    "ingredient": "minecraft:water",
+    "amount": 1000
+  },
+  "fluid_result": {
+    "id": "chronodynamics:sulfuric_acid",
+    "amount": 1000
+  },
+  "min_heat": 150,
+  "max_heat": 250,
+  "time": 200
+}

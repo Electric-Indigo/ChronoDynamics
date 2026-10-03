@@ -7,6 +7,7 @@ import io.github.electricindigo.block.computerdesk.ComputerDeskBlock;
 import io.github.electricindigo.registry.ModBlocks;
 import io.github.electricindigo.block.DeskPart;
 import io.github.electricindigo.block.researchdesk.ResearchDeskBlock;
+import io.github.electricindigo.registry.ModFluids;
 import io.github.electricindigo.registry.ModItems;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
@@ -46,6 +47,13 @@ public class ModModelProvider extends ModelProvider
 
         blockModels.createAmethystCluster(ModBlocks.CHRONITE_CLUSTER.get());
         itemModels.generateFlatItem(ModItems.CHRONITE_CLUSTER_ITEM.get(), ModelTemplates.FLAT_ITEM);
+
+        for (ModFluids.ModFluid fluid : ModFluids.ALL)
+        {
+            itemModels.generateFlatItem(fluid.bucket().get(), ModelTemplates.FLAT_ITEM);
+            blockModels.blockStateOutput.accept(MultiVariantGenerator.dispatch(fluid.block().get(),
+                    blockModels.plainVariant(Identifier.withDefaultNamespace("block/water"))));
+        }
 
         //RESEARCH DESK//
         Identifier primaryResearchModel = ModelLocationUtils.getModelLocation(ModBlocks.RESEARCH_DESK.get(), "_primary");

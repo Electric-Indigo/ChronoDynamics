@@ -1,0 +1,17 @@
+{
+  "type": "chronodynamics:chemistry",
+  "ingredients": [
+    "minecraft:magma_cream"
+  ],
+  "solvent": {
+    "ingredient": "minecraft:water",
+    "amount": 500
+  },
+  "fluid_result": {
+    "id": "minecraft:lava",
+    "amount": 250
+  },
+  "min_heat": 100,
+  "max_heat": 400,
+  "time": 100
+}

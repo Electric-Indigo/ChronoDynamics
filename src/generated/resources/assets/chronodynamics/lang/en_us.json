@@ -1,16 +1,21 @@
 {
   "block.chronodynamics.chemistry_bench": "Chemistry Bench",
   "block.chronodynamics.chronite_cluster": "Chronite Cluster",
+  "block.chronodynamics.chronite_slurry": "Synthesized Chronite Slurry",
   "block.chronodynamics.computer_desk": "Computer Desk",
   "block.chronodynamics.research_desk": "Research Desk",
+  "block.chronodynamics.sulfuric_acid": "Sulfuric Acid",
   "chronodynamics.configuration.disableTimeDistortion": "Disable time distortion",
   "chronodynamics.configuration.reduceRiftFlicker": "Reduce rift flicker",
   "chronodynamics.configuration.retroBubbleRadius": "Retro bubble radius",
   "creativetab.chronodynamics.chronodynamics_tab": "Chrono Dynamics",
+  "fluid_type.chronodynamics.chronite_slurry": "Synthesized Chronite Slurry",
+  "fluid_type.chronodynamics.sulfuric_acid": "Sulfuric Acid",
   "item.chronodynamics.blueprint": "Blueprint",
   "item.chronodynamics.blueprint.named": "Blueprint: %s",
   "item.chronodynamics.burnt_ash": "Burnt Ash",
   "item.chronodynamics.chronite_crystal": "Chronite Crystal",
+  "item.chronodynamics.chronite_slurry_bucket": "Chronite Slurry Bucket",
   "item.chronodynamics.circuit_board": "Circuit Board",
   "item.chronodynamics.computer_upgrade": "Computer Upgrade",
   "item.chronodynamics.conductive_redstone_paste": "Conductive Redstone Paste",
@@ -20,5 +25,6 @@
   "item.chronodynamics.purified_quartz": "Purified Quartz",
   "item.chronodynamics.quartz_oscillator": "Quartz Oscillator",
   "item.chronodynamics.resonant_amethyst": "Resonant Amethyst",
-  "item.chronodynamics.scanner": "Chronite Scanner"
+  "item.chronodynamics.scanner": "Chronite Scanner",
+  "item.chronodynamics.sulfuric_acid_bucket": "Sulfuric Acid Bucket"
 }

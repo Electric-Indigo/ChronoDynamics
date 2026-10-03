@@ -2,11 +2,12 @@ package io.github.electricindigo.recipe;
 
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeInput;
+import net.neoforged.neoforge.fluids.FluidStack;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public record ChemistryInput(ItemStack first, ItemStack second, ItemStack third) implements RecipeInput
+public record ChemistryInput(ItemStack first, ItemStack second, ItemStack third, FluidStack solvent) implements RecipeInput
 {
 
     @Override
@@ -21,7 +22,8 @@ public record ChemistryInput(ItemStack first, ItemStack second, ItemStack third)
     }
 
     @Override
-    public int size() {
+    public int size()
+    {
         return 3;
     }
 

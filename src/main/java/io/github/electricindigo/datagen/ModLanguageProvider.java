@@ -2,6 +2,7 @@ package io.github.electricindigo.datagen;
 
 import io.github.electricindigo.ChronoDynamics;
 import io.github.electricindigo.registry.ModBlocks;
+import io.github.electricindigo.registry.ModFluids;
 import io.github.electricindigo.registry.ModItems;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.common.data.LanguageProvider;
@@ -35,8 +36,17 @@ public class ModLanguageProvider extends LanguageProvider
         addBlock(ModBlocks.CHEMISTRY_BENCH, "Chemistry Bench");
         addBlock(ModBlocks.COMPUTER_DESK, "Computer Desk");
 
+        addBlock(ModFluids.SULFURIC_ACID.block(), "Sulfuric Acid");
+        addBlock(ModFluids.CHRONITE_SLURRY.block(), "Synthesized Chronite Slurry");
+
+        addItem(ModFluids.SULFURIC_ACID.bucket(), "Sulfuric Acid Bucket");
+        addItem(ModFluids.CHRONITE_SLURRY.bucket(), "Chronite Slurry Bucket");
+
         add("creativetab.chronodynamics.chronodynamics_tab", "Chrono Dynamics");
         add("item.chronodynamics.blueprint.named", "Blueprint: %s");
+
+        add("fluid_type.chronodynamics.sulfuric_acid", "Sulfuric Acid");
+        add("fluid_type.chronodynamics.chronite_slurry", "Synthesized Chronite Slurry");
 
         add("chronodynamics.configuration.reduceRiftFlicker", "Reduce rift flicker");
         add("chronodynamics.configuration.disableTimeDistortion", "Disable time distortion");

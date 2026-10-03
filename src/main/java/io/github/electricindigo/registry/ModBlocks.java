@@ -32,7 +32,7 @@ public class ModBlocks
     public static final DeferredBlock<Block> CHEMISTRY_BENCH = BLOCKS.registerBlock(
             "chemistry_bench",
             ChemistryBenchBlock::new,
-            properties -> properties.strength(3.5f).requiresCorrectToolForDrops()
+            properties -> properties.noOcclusion().strength(3.5f).requiresCorrectToolForDrops()
     );
 
     public static final DeferredBlock<Block> CHRONITE_CLUSTER = BLOCKS.registerBlock(
