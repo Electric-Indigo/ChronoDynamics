@@ -6,6 +6,7 @@ import io.github.electricindigo.block.computerdesk.ComputerDeskBlock;
 import io.github.electricindigo.block.researchdesk.ResearchDeskBlock;
 import net.minecraft.world.level.block.AmethystClusterBlock;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
@@ -42,6 +43,16 @@ public class ModBlocks
                     .sound(SoundType.AMETHYST_CLUSTER).strength(1.5F)
                     .lightLevel(state -> 5).pushReaction(PushReaction.POPPED)
     );
+
+    public static final DeferredBlock<LiquidBlock> CHRONITE_SLURRY_LIQUID_BLOCK = BLOCKS.registerBlock("chronite_slurry",
+            properties -> new LiquidBlock(ModFluids.CHRONITE_SLURRY_SOURCE.get(), properties
+                    .mapColor(MapColor.COLOR_PURPLE).replaceable().noCollision().strength(100.0F)
+                    .pushReaction(PushReaction.POPPED).noLootTable().liquid().sound(SoundType.EMPTY)));
+
+    public static final DeferredBlock<LiquidBlock> SULFURIC_ACID_LIQUID_BLOCK = BLOCKS.registerBlock("sulfuric_acid",
+            properties -> new LiquidBlock(ModFluids.SULFURIC_ACID_SOURCE.get(), properties
+                    .mapColor(MapColor.COLOR_YELLOW).replaceable().noCollision().strength(100.0F)
+                    .pushReaction(PushReaction.POPPED).noLootTable().liquid().sound(SoundType.EMPTY)));
 
     public static void register(IEventBus modEventBus)
     {

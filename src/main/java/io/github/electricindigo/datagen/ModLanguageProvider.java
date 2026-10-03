@@ -36,11 +36,11 @@ public class ModLanguageProvider extends LanguageProvider
         addBlock(ModBlocks.CHEMISTRY_BENCH, "Chemistry Bench");
         addBlock(ModBlocks.COMPUTER_DESK, "Computer Desk");
 
-        addBlock(ModFluids.SULFURIC_ACID.block(), "Sulfuric Acid");
-        addBlock(ModFluids.CHRONITE_SLURRY.block(), "Synthesized Chronite Slurry");
+        addBlock(ModBlocks.SULFURIC_ACID_LIQUID_BLOCK, "Sulfuric Acid");
+        addBlock(ModBlocks.CHRONITE_SLURRY_LIQUID_BLOCK, "Synthesized Chronite Slurry");
 
-        addItem(ModFluids.SULFURIC_ACID.bucket(), "Sulfuric Acid Bucket");
-        addItem(ModFluids.CHRONITE_SLURRY.bucket(), "Chronite Slurry Bucket");
+        addItem(ModItems.SULFURIC_ACID_BUCKET, "Sulfuric Acid Bucket");
+        addItem(ModItems.CHRONITE_SLURRY_BUCKET, "Chronite Slurry Bucket");
 
         add("creativetab.chronodynamics.chronodynamics_tab", "Chrono Dynamics");
         add("item.chronodynamics.blueprint.named", "Blueprint: %s");

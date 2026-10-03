@@ -45,6 +45,7 @@ public class ChronoDynamics
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
         ModFluids.register(modEventBus);
+        ModFluidTypes.register(modEventBus);
         ModBlockEntities.register(modEventBus);
         ModMenuTypes.register(modEventBus);
         ModCreativeTabs.register(modEventBus);
@@ -73,6 +74,8 @@ public class ChronoDynamics
 
         generator.addProvider(true, new ModLanguageProvider(output));
         generator.addProvider(true, new ModModelProvider(output));
+
+      //  event.createProvider(ModFluidTagsProvider::new);
 
         event.createBlockAndItemTags(ModBlockTagsProvider::new, ((output1, lookupProvider, contentsGetter) -> new ModItemTagsProvider(output1, lookupProvider)));
 

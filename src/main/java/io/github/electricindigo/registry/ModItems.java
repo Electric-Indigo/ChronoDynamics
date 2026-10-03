@@ -3,9 +3,7 @@ package io.github.electricindigo.registry;
 import io.github.electricindigo.ChronoDynamics;
 import io.github.electricindigo.item.BlueprintItem;
 import io.github.electricindigo.item.ScannerItem;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.*;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -40,7 +38,11 @@ public class ModItems
     public static final DeferredItem<Item> DRIFT_SENSOR = ITEMS.registerSimpleItem("drift_sensor");
     public static final DeferredItem<Item> CIRCUIT_BOARD = ITEMS.registerSimpleItem("circuit_board");
 
+    public static final DeferredItem<Item> CHRONITE_SLURRY_BUCKET = ITEMS.registerItem("chronite_slurry_bucket",
+            properties -> new BucketItem(ModFluids.CHRONITE_SLURRY_SOURCE.get(), properties.stacksTo(1).craftRemainder(Items.BUCKET)));
 
+    public static final DeferredItem<Item> SULFURIC_ACID_BUCKET = ITEMS.registerItem("sulfuric_acid_bucket",
+            properties -> new BucketItem(ModFluids.SULFURIC_ACID_SOURCE.get(), properties.stacksTo(1).craftRemainder(Items.BUCKET)));
 
     public static final DeferredItem<BlockItem> CHRONITE_CLUSTER_ITEM = ITEMS.registerSimpleBlockItem(ModBlocks.CHRONITE_CLUSTER);
     public static final DeferredItem<BlockItem> RESEARCH_DESK_ITEM = ITEMS.registerSimpleBlockItem(ModBlocks.RESEARCH_DESK);
